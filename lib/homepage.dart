@@ -26,10 +26,7 @@ class HomePage extends StatelessWidget {
             body: Row(
               children: [
                 // Conditionally render drawer based on screen width
-                if (constraints.maxWidth >= 600)
-                  SizedBox(
-                      width: 250, // Fixed drawer width
-                      child: CustomDrawer()),
+                if (constraints.maxWidth >= 700) CustomDrawer(),
                 // Main content
                 Expanded(
                   child: Container(
