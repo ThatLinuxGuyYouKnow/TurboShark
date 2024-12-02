@@ -33,9 +33,20 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text(
-              'Settings',
-              style: GoogleFonts.lexend(fontSize: 16),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Settings',
+                  style: GoogleFonts.kanit(
+                      fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+                Icon(
+                  size: 30,
+                  Icons.settings,
+                  color: Colors.black,
+                )
+              ],
             ),
             onTap: () {
               // Handle item 1 tap
