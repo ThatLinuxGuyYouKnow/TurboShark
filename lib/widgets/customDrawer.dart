@@ -4,6 +4,30 @@ class CustomDrawer extends StatelessWidget {
   CustomDrawer({super.key});
 
   Widget build(BuildContext context) {
-    return Drawer();
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            decoration: BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Text('Drawer Header'),
+          ),
+          ListTile(
+            title: const Text('Item 1'),
+            onTap: () {
+              // Handle item 1 tap
+            },
+          ),
+          ListTile(
+            title: const Text('Item 2'),
+            onTap: () {
+              // Handle item 2 tap
+            },
+          ),
+        ],
+      ),
+    );
   }
 }
