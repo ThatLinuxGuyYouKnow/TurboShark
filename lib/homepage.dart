@@ -26,11 +26,11 @@ class HomePage extends StatelessWidget {
             body: Row(
               children: [
                 // Conditionally render drawer based on screen width
-                if (constraints.maxWidth >= 700) CustomDrawer(),
+                if (constraints.maxWidth >= 700) const CustomDrawer(),
                 // Main content
                 Expanded(
                   child: Container(
-                    color: Colors.blueAccent.withOpacity(0.1),
+                    color: Colors.white,
                     child: Center(
                       child: Text('Main Content'),
                     ),
