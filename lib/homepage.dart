@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(),
+      body: Container(
+        color: Colors.blueAccent.withOpacity(0.1),
+        child: Center(
+          child: Text('Text'),
+        ),
+      ),
       drawer: Drawer(
         child: ListView(
           // Important: Remove any padding from the ListView.
