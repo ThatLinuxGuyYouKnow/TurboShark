@@ -28,33 +28,8 @@ class HomePage extends StatelessWidget {
                 // Conditionally render drawer based on screen width
                 if (constraints.maxWidth >= 600)
                   SizedBox(
-                    width: 250, // Fixed drawer width
-                    child: Drawer(
-                      child: ListView(
-                        padding: EdgeInsets.zero,
-                        children: [
-                          const DrawerHeader(
-                            decoration: BoxDecoration(
-                              color: Colors.blue,
-                            ),
-                            child: Text('Drawer Header'),
-                          ),
-                          ListTile(
-                            title: const Text('Item 1'),
-                            onTap: () {
-                              // Handle item 1 tap
-                            },
-                          ),
-                          ListTile(
-                            title: const Text('Item 2'),
-                            onTap: () {
-                              // Handle item 2 tap
-                            },
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                      width: 250, // Fixed drawer width
+                      child: CustomDrawer()),
                 // Main content
                 Expanded(
                   child: Container(
