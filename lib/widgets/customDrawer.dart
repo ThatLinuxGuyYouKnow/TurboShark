@@ -21,9 +21,16 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
-            title: Text(
-              'Item 17',
-              style: GoogleFonts.lexend(),
+            title: Row(
+              children: [
+                Text(
+                  'Settings',
+                  style: GoogleFonts.lexend(fontSize: 14),
+                ),
+                Image(
+                  image: AssetImage('assets/logo.png'),
+                )
+              ],
             ),
             onTap: () {
               // Handle item 1 tap
