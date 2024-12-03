@@ -8,7 +8,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      toolbarHeight: 300, // Standard height
+      toolbarHeight: 137, // Standard height
       backgroundColor: Colors.white,
       centerTitle: false, // Left-align title
       title: Column(
@@ -34,5 +34,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(157);
+  Size get preferredSize => const Size.fromHeight(137);
 }
