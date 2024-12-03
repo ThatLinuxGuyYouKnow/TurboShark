@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:turbo_shark/widgets/buttons.dart';
 import 'package:turbo_shark/widgets/searchBar.dart';
 
 class CustomAppBarForDownloads extends StatelessWidget
@@ -29,12 +30,13 @@ class CustomAppBarForDownloads extends StatelessWidget
                       fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
-                  width: constraints.maxWidth > 500 ? 300 : 80,
+                  width: constraints.maxWidth > 500 ? 700 : 80,
                 ),
                 Searchbar(constraints: constraints),
                 SizedBox(
-                  width: constraints.maxWidth > 500 ? 100 : 80,
+                  width: constraints.maxWidth > 500 ? 50 : 20,
                 ),
+                DownloadPromptButton()
               ],
             ),
           ),
