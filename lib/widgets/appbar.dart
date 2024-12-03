@@ -28,7 +28,13 @@ class CustomAppBarForDownloads extends StatelessWidget
                       fontSize: 30,
                       fontWeight: FontWeight.bold),
                 ),
-                Searchbar(constraints: constraints)
+                SizedBox(
+                  width: constraints.maxWidth > 500 ? 300 : 80,
+                ),
+                Searchbar(constraints: constraints),
+                SizedBox(
+                  width: constraints.maxWidth > 500 ? 100 : 80,
+                ),
               ],
             ),
           ),
