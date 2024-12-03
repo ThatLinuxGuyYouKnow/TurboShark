@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:turbo_shark/widgets/searchBar.dart';
 
-class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+class CustomAppBarForDownloads extends StatelessWidget
+    implements PreferredSizeWidget {
   final String appBarTitle;
-  const CustomAppBar({super.key, required this.appBarTitle});
+  final BoxConstraints constraints;
+  const CustomAppBarForDownloads(
+      {super.key, required this.appBarTitle, required this.constraints});
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +28,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       fontSize: 30,
                       fontWeight: FontWeight.bold),
                 ),
+                Searchbar(constraints: constraints)
               ],
             ),
           ),

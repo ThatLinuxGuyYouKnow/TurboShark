@@ -51,11 +51,15 @@ class _HomePageState extends State<HomePage> {
                     ),
                     // Expanded main content
                     Expanded(
-                      child: DownloadScreen(),
+                      child: DownloadScreen(
+                        constraints: constraints,
+                      ),
                     ),
                   ],
                 )
-              : DownloadScreen(), // Full screen on narrow screens
+              : DownloadScreen(
+                  constraints: constraints,
+                ), // Full screen on narrow screens
 
           // Slide-out drawer for narrow screens
           drawer: !isWideScreen ? const CustomDrawer() : null,
