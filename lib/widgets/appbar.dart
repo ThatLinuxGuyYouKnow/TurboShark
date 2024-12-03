@@ -11,7 +11,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor: Colors.white,
         title: Text(
           appBarTitle,
-          style: GoogleFonts.russoOne(color: Colors.black, fontSize: 22),
+          style: GoogleFonts.russoOne(
+              color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
         ),
       ),
     );
