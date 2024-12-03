@@ -23,7 +23,8 @@ class CustomDrawer extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             DrawerHeader(
-              margin: EdgeInsets.only(bottom: 2),
+              margin: EdgeInsets.zero, // Remove margin
+              padding: EdgeInsets.zero,
               child: Row(
                 children: [
                   Image(
