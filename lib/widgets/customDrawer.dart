@@ -7,7 +7,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      width: MediaQuery.of(context).size.width * 0.18,
+      width: MediaQuery.of(context).size.width * 0.17,
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -25,14 +25,13 @@ class CustomDrawer extends StatelessWidget {
             DrawerHeader(
               margin: EdgeInsets.only(bottom: 2),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image(
                     image: AssetImage('logo.png'),
                     width: 80,
                     height: 80,
                   ),
-                  SizedBox(width: 16),
+                  SizedBox(width: 12),
                   Text(
                     'Turbo Shark',
                     style: GoogleFonts.russoOne(
@@ -63,7 +62,7 @@ class CustomDrawer extends StatelessWidget {
               context,
               icon: Icons.settings,
               text: 'Settings',
-              isReversed: true,
+              isReversed: false,
               onTap: () {
                 // Handle settings
               },
@@ -81,41 +80,44 @@ class CustomDrawer extends StatelessWidget {
     required VoidCallback onTap,
     bool isReversed = false,
   }) {
-    final tileContent = Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: isReversed
-          ? [
-              Text(
-                text,
-                style: GoogleFonts.kanit(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
+    final tileContent = Padding(
+      padding: EdgeInsets.symmetric(horizontal: 30.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: isReversed
+            ? [
+                Text(
+                  text,
+                  style: GoogleFonts.kanit(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+                SizedBox(width: 16),
+                Icon(
+                  icon,
+                  size: 30,
                   color: Colors.white,
                 ),
-              ),
-              SizedBox(width: 16),
-              Icon(
-                icon,
-                size: 30,
-                color: Colors.white,
-              ),
-            ]
-          : [
-              Icon(
-                icon,
-                size: 30,
-                color: Colors.white,
-              ),
-              SizedBox(width: 16),
-              Text(
-                text,
-                style: GoogleFonts.kanit(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
+              ]
+            : [
+                Icon(
+                  icon,
+                  size: 30,
                   color: Colors.white,
                 ),
-              ),
-            ],
+                SizedBox(width: 16),
+                Text(
+                  text,
+                  style: GoogleFonts.kanit(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+      ),
     );
 
     return Container(
