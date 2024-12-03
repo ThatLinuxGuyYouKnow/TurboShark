@@ -7,84 +7,133 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.white,
-      width: MediaQuery.of(context).size.width * 0.18, // 75% of screen width
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            margin: EdgeInsets.only(bottom: 2),
-            decoration: BoxDecoration(color: Colors.white),
-            child: Row(
-              children: [
-                Image(
-                  image: AssetImage('logo.png'),
-                  width: 100, // Specify image width
-                  height: 100, // Specify image height
-                ),
-                SizedBox(width: 16), // Add spacing between image and text
-                Text(
-                  'Turbo Shark',
-                  style: GoogleFonts.russoOne(
+      width: MediaQuery.of(context).size.width * 0.18,
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.blue.shade300,
+              Colors.blue.shade700,
+            ],
+          ),
+        ),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              margin: EdgeInsets.only(bottom: 2),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image(
+                    image: AssetImage('logo.png'),
+                    width: 80,
+                    height: 80,
+                  ),
+                  SizedBox(width: 16),
+                  Text(
+                    'Turbo Shark',
+                    style: GoogleFonts.russoOne(
                       fontWeight: FontWeight.bold,
-                      fontSize: 24, // Increased font size
-                      color: Colors.blue),
-                ),
-              ],
+                      fontSize: 24,
+                      color: Colors.white,
+                      shadows: [
+                        Shadow(
+                          blurRadius: 10.0,
+                          color: Colors.black45,
+                          offset: Offset(2.0, 2.0),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          ListTile(
-            contentPadding: const EdgeInsets.only(top: 10, left: 4),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Icon(
-                  size: 30,
-                  Icons.settings,
-                  color: Colors.black,
-                ),
-                Text(
-                  'Dwonloads',
-                  style: GoogleFonts.kanit(
-                      fontSize: 22, fontWeight: FontWeight.bold),
-                ),
-              ],
+            _buildDrawerTile(
+              context,
+              icon: Icons.download,
+              text: 'Downloads',
+              onTap: () {
+                // Handle downloads
+              },
             ),
-            onTap: () {
-              // Handle item 1 tap
-            },
-          ),
-          ListTile(
-            contentPadding: const EdgeInsets.only(top: 10, left: 4),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  'Settings',
-                  style: GoogleFonts.kanit(
-                      fontSize: 22, fontWeight: FontWeight.bold),
+            _buildDrawerTile(
+              context,
+              icon: Icons.settings,
+              text: 'Settings',
+              isReversed: true,
+              onTap: () {
+                // Handle settings
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDrawerTile(
+    BuildContext context, {
+    required IconData icon,
+    required String text,
+    required VoidCallback onTap,
+    bool isReversed = false,
+  }) {
+    final tileContent = Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: isReversed
+          ? [
+              Text(
+                text,
+                style: GoogleFonts.kanit(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
-                Icon(
-                  size: 30,
-                  Icons.settings,
-                  color: Colors.black,
-                )
-              ],
-            ),
-            onTap: () {
-              // Handle item 1 tap
-            },
+              ),
+              SizedBox(width: 16),
+              Icon(
+                icon,
+                size: 30,
+                color: Colors.white,
+              ),
+            ]
+          : [
+              Icon(
+                icon,
+                size: 30,
+                color: Colors.white,
+              ),
+              SizedBox(width: 16),
+              Text(
+                text,
+                style: GoogleFonts.kanit(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+    );
+
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: onTap,
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            child: tileContent,
           ),
-          ListTile(
-            title: Text(
-              'Item 2',
-              style: GoogleFonts.lexend(fontSize: 16),
-            ),
-            onTap: () {
-              // Handle item 2 tap
-            },
-          ),
-        ],
+        ),
       ),
     );
   }
