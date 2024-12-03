@@ -4,7 +4,7 @@ import 'package:turbo_shark/widgets/appbar.dart';
 class DownloadScreen extends StatelessWidget {
   DownloadScreen({super.key});
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(
         appBarTitle: 'Downloads',

@@ -13,11 +13,19 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: false, // Left-align title
       title: Column(
         children: [
-          SizedBox(height: 20),
-          Text(
-            appBarTitle,
-            style: GoogleFonts.ubuntu(
-                color: Colors.black, fontSize: 26, fontWeight: FontWeight.bold),
+          Expanded(
+            flex: 0,
+            child: Row(
+              children: [
+                Text(
+                  appBarTitle,
+                  style: GoogleFonts.ubuntu(
+                      color: Colors.black,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -25,7 +33,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(1),
         child: Divider(
-          color: Colors.black38,
+          color: Colors.black.withOpacity(0.2),
           height: 1,
           thickness: 1,
         ),
