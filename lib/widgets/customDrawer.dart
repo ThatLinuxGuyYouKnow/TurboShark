@@ -60,8 +60,8 @@ class CustomDrawer extends StatelessWidget {
             ),
             _buildDrawerTile(
               context,
-              icon: Icons.settings,
-              text: 'Settings',
+              icon: Icons.history,
+              text: 'History',
               isReversed: false,
               onTap: () {
                 // Handle settings
@@ -69,8 +69,8 @@ class CustomDrawer extends StatelessWidget {
             ),
             _buildDrawerTile(
               context,
-              icon: Icons.history,
-              text: 'History',
+              icon: Icons.settings,
+              text: 'Settings',
               isReversed: false,
               onTap: () {
                 // Handle settings
@@ -109,8 +109,8 @@ class CustomDrawer extends StatelessWidget {
                   child: Text(
                     text,
                     style: GoogleFonts.kanit(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
                       color: Colors.white,
                     ),
                     textAlign: TextAlign.start,
@@ -134,9 +134,9 @@ class CustomDrawer extends StatelessWidget {
                   child: Text(
                     text,
                     style: GoogleFonts.dmSans(
-                      fontSize: 20,
-                      color: Colors.white,
-                    ),
+                        fontSize: 15,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w400),
                     textAlign: TextAlign.start,
                   ),
                 ),
@@ -147,7 +147,7 @@ class CustomDrawer extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.2),
+        color: Colors.white.withOpacity(0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Material(

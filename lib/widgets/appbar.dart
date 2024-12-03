@@ -3,23 +3,36 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String appBarTitle;
-  CustomAppBar({super.key, required this.appBarTitle});
+  const CustomAppBar({super.key, required this.appBarTitle});
+
+  @override
   Widget build(BuildContext context) {
-    return PreferredSize(
-      preferredSize: const Size.fromHeight(100),
-      child: AppBar(
-        backgroundColor: Colors.white,
-        title: Padding(
-          padding: const EdgeInsets.only(top: 100, bottom: 40),
-          child: Text(
+    return AppBar(
+      toolbarHeight: 300, // Standard height
+      backgroundColor: Colors.white,
+      centerTitle: false, // Left-align title
+      title: Column(
+        children: [
+          SizedBox(height: 20),
+          Text(
             appBarTitle,
-            style: GoogleFonts.russoOne(
-                color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+            style: GoogleFonts.ubuntu(
+                color: Colors.black, fontSize: 26, fontWeight: FontWeight.bold),
           ),
+        ],
+      ),
+      elevation: 0, // Remove shadow
+      bottom: PreferredSize(
+        preferredSize: const Size.fromHeight(1),
+        child: Divider(
+          color: Colors.black38,
+          height: 1,
+          thickness: 1,
         ),
       ),
     );
   }
 
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
+  @override
+  Size get preferredSize => const Size.fromHeight(157);
 }
