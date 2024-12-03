@@ -13,6 +13,7 @@ class CustomDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
+            margin: EdgeInsets.only(bottom: 2),
             decoration: BoxDecoration(color: Colors.white),
             child: Row(
               children: [
@@ -33,6 +34,7 @@ class CustomDrawer extends StatelessWidget {
             ),
           ),
           ListTile(
+            contentPadding: const EdgeInsets.only(top: 10, left: 4),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
