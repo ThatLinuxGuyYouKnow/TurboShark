@@ -81,9 +81,9 @@ class CustomDrawer extends StatelessWidget {
     bool isReversed = false,
   }) {
     final tileContent = Padding(
-      padding: EdgeInsets.symmetric(horizontal: 30.0),
+      padding: EdgeInsets.symmetric(horizontal: 59.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: isReversed
             ? [
                 Text(
