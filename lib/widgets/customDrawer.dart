@@ -36,7 +36,28 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             contentPadding: const EdgeInsets.only(top: 10, left: 4),
             title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Icon(
+                  size: 30,
+                  Icons.settings,
+                  color: Colors.black,
+                ),
+                Text(
+                  'Dwonloads',
+                  style: GoogleFonts.kanit(
+                      fontSize: 22, fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            onTap: () {
+              // Handle item 1 tap
+            },
+          ),
+          ListTile(
+            contentPadding: const EdgeInsets.only(top: 10, left: 4),
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Text(
                   'Settings',
