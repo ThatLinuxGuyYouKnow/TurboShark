@@ -7,7 +7,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      width: MediaQuery.of(context).size.width * 0.17,
+      width: MediaQuery.of(context).size.width * 0.16,
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -67,6 +67,24 @@ class CustomDrawer extends StatelessWidget {
                 // Handle settings
               },
             ),
+            _buildDrawerTile(
+              context,
+              icon: Icons.history,
+              text: 'History',
+              isReversed: false,
+              onTap: () {
+                // Handle settings
+              },
+            ),
+            _buildDrawerTile(
+              context,
+              icon: Icons.help,
+              text: 'Help',
+              isReversed: false,
+              onTap: () {
+                // Handle settings
+              },
+            ),
           ],
         ),
       ),
@@ -83,7 +101,7 @@ class CustomDrawer extends StatelessWidget {
     final tileContent = Padding(
       padding: EdgeInsets.symmetric(horizontal: 59.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: isReversed
             ? [
                 Text(
@@ -110,7 +128,7 @@ class CustomDrawer extends StatelessWidget {
                 SizedBox(width: 16),
                 Text(
                   text,
-                  style: GoogleFonts.kanit(
+                  style: GoogleFonts.dmSans(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
@@ -132,7 +150,7 @@ class CustomDrawer extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           onTap: onTap,
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 2),
             child: tileContent,
           ),
         ),
