@@ -5,9 +5,11 @@ class Searchbar extends StatelessWidget {
   final BoxConstraints constraints;
   Widget build(BuildContext context) {
     return Container(
-        width: constraints.maxWidth > 500 ? 500 : 100,
+        width: constraints.maxWidth > 500 ? 800 : 100,
         decoration: BoxDecoration(
-            color: Colors.white, borderRadius: BorderRadius.circular(20)),
-        child: TextField());
+            color: Colors.grey[50], borderRadius: BorderRadius.circular(20)),
+        child: TextField(
+          decoration: InputDecoration(border: InputBorder.none),
+        ));
   }
 }

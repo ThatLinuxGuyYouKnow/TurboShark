@@ -2,12 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:turbo_shark/widgets/customDrawer.dart';
 import 'package:turbo_shark/widgets/searchBar.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isWideScreen = constraints.maxWidth >= 700;
+        final isWideScreen = constraints.maxWidth >= 400;
 
         return Scaffold(
           // Remove the AppBar for wide screens to prevent interference with drawer
@@ -34,11 +39,7 @@ class HomePage extends StatelessWidget {
           body: Row(
             children: [
               // Permanently show drawer on wide screens
-              if (isWideScreen)
-                const SizedBox(
-                  width: 250, // Adjust width as needed
-                  child: CustomDrawer(),
-                ),
+              if (isWideScreen) CustomDrawer(),
 
               // Main content expanded
               Expanded(
