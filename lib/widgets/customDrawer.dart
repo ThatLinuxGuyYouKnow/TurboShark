@@ -99,17 +99,21 @@ class CustomDrawer extends StatelessWidget {
     bool isReversed = false,
   }) {
     final tileContent = Padding(
-      padding: EdgeInsets.symmetric(horizontal: 59.0),
+      padding:
+          EdgeInsets.symmetric(horizontal: 25.0), // Adjusted horizontal padding
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start, // Aligns items consistently
         children: isReversed
             ? [
-                Text(
-                  text,
-                  style: GoogleFonts.kanit(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                Expanded(
+                  child: Text(
+                    text,
+                    style: GoogleFonts.kanit(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.start,
                   ),
                 ),
                 SizedBox(width: 16),
@@ -126,12 +130,14 @@ class CustomDrawer extends StatelessWidget {
                   color: Colors.white,
                 ),
                 SizedBox(width: 16),
-                Text(
-                  text,
-                  style: GoogleFonts.dmSans(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                Expanded(
+                  child: Text(
+                    text,
+                    style: GoogleFonts.dmSans(
+                      fontSize: 20,
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.start,
                   ),
                 ),
               ],
@@ -150,7 +156,7 @@ class CustomDrawer extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           onTap: onTap,
           child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 2),
+            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 10),
             child: tileContent,
           ),
         ),

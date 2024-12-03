@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:turbo_shark/widgets/customDrawer.dart';
 import 'package:turbo_shark/widgets/searchBar.dart';
 
@@ -18,8 +19,10 @@ class _HomePageState extends State<HomePage> {
           // Remove the AppBar for wide screens to prevent interference with drawer
           appBar: !isWideScreen
               ? AppBar(
-                  title: Searchbar(
-                    constraints: constraints,
+                  title: Text(
+                    'Downloads',
+                    style: GoogleFonts.kanit(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   // Add a custom drawer button
                   leading: Builder(
@@ -51,7 +54,11 @@ class _HomePageState extends State<HomePage> {
                       if (isWideScreen)
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Searchbar(constraints: constraints),
+                          child: Text(
+                            'Downloads',
+                            style: GoogleFonts.ubuntu(
+                                fontSize: 30, fontWeight: FontWeight.bold),
+                          ),
                         ),
                       Expanded(
                         child: Center(
