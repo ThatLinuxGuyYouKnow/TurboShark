@@ -7,6 +7,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       width: MediaQuery.of(context).size.width * 0.16,
       child: Container(
         decoration: BoxDecoration(
