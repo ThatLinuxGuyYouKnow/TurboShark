@@ -8,7 +8,7 @@ class Searchbar extends StatelessWidget {
         width: constraints.maxWidth > 500 ? 800 : 100,
         decoration: BoxDecoration(
             color: Colors.grey[50], borderRadius: BorderRadius.circular(20)),
-        child: TextField(
+        child: const TextField(
           decoration: InputDecoration(border: InputBorder.none),
         ));
   }

@@ -5,6 +5,7 @@ class DownloadScreen extends StatelessWidget {
   DownloadScreen({super.key});
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: CustomAppBar(
         appBarTitle: 'Download',
       ),

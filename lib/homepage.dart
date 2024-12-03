@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:turbo_shark/screens/downloadsScreen.dart';
 import 'package:turbo_shark/widgets/customDrawer.dart';
 import 'package:turbo_shark/widgets/searchBar.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -13,10 +16,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        final isWideScreen = constraints.maxWidth >= 400;
+        final isWideScreen =
+            constraints.maxWidth >= 700; // Increased breakpoint
 
         return Scaffold(
-          // Remove the AppBar for wide screens to prevent interference with drawer
+          // Remove the AppBar for wide screens
           appBar: !isWideScreen
               ? AppBar(
                   title: Text(
@@ -28,7 +32,7 @@ class _HomePageState extends State<HomePage> {
                   leading: Builder(
                     builder: (BuildContext context) {
                       return IconButton(
-                        icon: Icon(Icons.menu),
+                        icon: const Icon(Icons.menu),
                         onPressed: () {
                           Scaffold.of(context).openDrawer();
                         },
@@ -38,42 +42,23 @@ class _HomePageState extends State<HomePage> {
                 )
               : null,
 
-          // Use a custom body to handle drawer positioning
-          body: Row(
-            children: [
-              // Permanently show drawer on wide screens
-              if (isWideScreen) CustomDrawer(),
+          body: isWideScreen
+              ? Row(
+                  children: [
+                    // Permanent drawer on wide screens
+                    const SizedBox(
+                      child: CustomDrawer(),
+                    ),
+                    // Expanded main content
+                    Expanded(
+                      child: DownloadScreen(),
+                    ),
+                  ],
+                )
+              : DownloadScreen(), // Full screen on narrow screens
 
-              // Main content expanded
-              Expanded(
-                child: Container(
-                  color: Colors.white,
-                  child: Column(
-                    children: [
-                      // Add searchbar for wide screens
-                      if (isWideScreen)
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            'Downloads',
-                            style: GoogleFonts.ubuntu(
-                                fontSize: 30, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      Expanded(
-                        child: Center(
-                          child: Text('Main Content'),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-
-          // Drawer for narrow screens
-          drawer: !isWideScreen ? CustomDrawer() : null,
+          // Slide-out drawer for narrow screens
+          drawer: !isWideScreen ? const CustomDrawer() : null,
         );
       },
     );

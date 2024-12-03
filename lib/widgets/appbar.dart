@@ -9,10 +9,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       preferredSize: const Size.fromHeight(100),
       child: AppBar(
         backgroundColor: Colors.white,
-        title: Text(
-          appBarTitle,
-          style: GoogleFonts.russoOne(
-              color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+        title: Padding(
+          padding: const EdgeInsets.only(top: 100, bottom: 40),
+          child: Text(
+            appBarTitle,
+            style: GoogleFonts.russoOne(
+                color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold),
+          ),
         ),
       ),
     );
