@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:turbo_shark/logic/downloadManager.dart';
 import 'package:turbo_shark/widgets/dropdowns.dart';
 import 'package:turbo_shark/widgets/textfields.dart';
 
@@ -15,7 +16,7 @@ class DownloadDetailsModal extends StatefulWidget {
 
 class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
   String selectedPriority = "Normal"; // Default priority
-
+  String? downloadUrl;
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -92,6 +93,11 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                 child: CustomTextField(
                   prefix: Icons.link,
                   hint: 'Paste your download URL here',
+                  textFormString: (String text) {
+                    setState(() {
+                      downloadUrl = text;
+                    });
+                  },
                 ),
               ),
 
@@ -104,6 +110,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                 child: CustomTextField(
                   prefix: Icons.file_copy,
                   hint: 'my-download.mkv',
+                  textFormString: (String text) {},
                 ),
               ),
 
@@ -115,6 +122,8 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                 padding: const EdgeInsets.symmetric(horizontal: 40.0),
                 child: DownloadLocationDropdown(
                   onNewLocationSelected: (String location) {
+                    final downloader = ConcurrentFileDownloader(
+                        url: downloadUrl ?? '', savePath: location);
                     // Handle location selection
                   },
                 ),

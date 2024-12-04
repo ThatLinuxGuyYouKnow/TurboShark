@@ -4,9 +4,17 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomTextField extends StatelessWidget {
   final IconData prefix;
   final String hint;
-  CustomTextField({super.key, required this.prefix, required this.hint});
+  final Function(String text) textFormString;
+  CustomTextField(
+      {super.key,
+      required this.prefix,
+      required this.hint,
+      required this.textFormString});
   Widget build(BuildContext context) {
     return TextField(
+      onChanged: (String text) {
+        textFormString(text);
+      },
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: GoogleFonts.ubuntu(
