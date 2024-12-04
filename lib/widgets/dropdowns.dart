@@ -51,6 +51,7 @@ class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
       items: availableLocations,
       value: selectedLocation,
       onChanged: (value) {
+        print('attempting download');
         setState(() {
           selectedLocation = value!;
         });

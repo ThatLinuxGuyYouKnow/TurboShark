@@ -17,6 +17,7 @@ class DownloadDetailsModal extends StatefulWidget {
 class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
   String selectedPriority = "Normal"; // Default priority
   String? downloadUrl;
+  String? downloadPATH;
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -122,8 +123,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                 padding: const EdgeInsets.symmetric(horizontal: 40.0),
                 child: DownloadLocationDropdown(
                   onNewLocationSelected: (String location) {
-                    final downloader = ConcurrentFileDownloader(
-                        url: downloadUrl ?? '', savePath: location);
+                    downloadPATH = location;
                     // Handle location selection
                   },
                 ),
@@ -179,8 +179,19 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                 child: SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
-                      // Handle submit logic
+                    onPressed: () async {
+                      final downloader = ConcurrentFileDownloader(
+                        url: downloadUrl ?? '',
+                        savePath: downloadPATH ?? '',
+                        segmentCount: 4, // Number of concurrent segments
+                      );
+
+                      try {
+                        await downloader.download();
+                        print('Download completed successfully');
+                      } catch (e) {
+                        print('Download failed: $e');
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue.shade300,

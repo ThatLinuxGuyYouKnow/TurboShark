@@ -15,6 +15,7 @@ class ConcurrentFileDownloader {
 
   Future<void> download() async {
     // Get file size first
+    print('starting downlad');
     final contentLength = await _getContentLength();
 
     if (contentLength == null) {
