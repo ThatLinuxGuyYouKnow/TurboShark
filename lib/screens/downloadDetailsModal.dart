@@ -65,7 +65,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                     Text(
                       'New Download',
                       style: GoogleFonts.ubuntu(
-                        fontSize: 30,
+                        fontSize: 27,
                         fontWeight: FontWeight.bold,
                         color: Colors.black87,
                       ),
@@ -74,7 +74,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                     Text(
                       'Enter the details for your new download.',
                       style: GoogleFonts.ubuntu(
-                        fontSize: 18,
+                        fontSize: 15,
                         fontWeight: FontWeight.w300,
                         color: Colors.grey[600],
                       ),
@@ -188,7 +188,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                 ),
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 30),
             ],
           ),
         ),
@@ -202,7 +202,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
       child: Text(
         title,
         style: GoogleFonts.ubuntu(
-          fontSize: 22,
+          fontSize: 18,
           fontWeight: FontWeight.w700,
           color: Colors.black87,
         ),
