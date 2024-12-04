@@ -9,7 +9,7 @@ class DownloadDetailsmodal extends StatelessWidget {
     return Container(
       height: screenHeight,
       width: screenWidth,
-      color: Colors.black.withOpacity(0.1),
+      color: Colors.black.withOpacity(0.3),
       child: Center(
         child: Container(
           height: 800,
@@ -18,16 +18,19 @@ class DownloadDetailsmodal extends StatelessWidget {
               color: Colors.white, borderRadius: BorderRadius.circular(20)),
           child: Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                      onTap: () => onModelClosePrompted(),
-                      child: Icon(Icons.cancel_outlined)),
-                  SizedBox(
-                    width: 20,
-                  )
-                ],
+              Padding(
+                padding: EdgeInsets.only(top: 12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                        onTap: () => onModelClosePrompted(),
+                        child: Icon(Icons.cancel_outlined)),
+                    SizedBox(
+                      width: 20,
+                    )
+                  ],
+                ),
               )
             ],
           ),
