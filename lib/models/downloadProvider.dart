@@ -10,7 +10,13 @@ class DownloadProvider extends ChangeNotifier {
   addDownload({
     required String downloadName,
   }) {
-    _downloads.add(DownloadWidget(
+    _downloads.add(
+      DownloadWidget(
+          downloadName: downloadName,
+          downloadProgress: 1,
+          downloadstate: Downloadstate.inProgress),
+    );
+    _currentDownloads.add(DownloadWidget(
         downloadName: downloadName,
         downloadProgress: 1,
         downloadstate: Downloadstate.inProgress));
