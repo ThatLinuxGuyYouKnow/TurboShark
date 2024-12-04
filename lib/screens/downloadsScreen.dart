@@ -50,7 +50,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
                 ),
         ),
         showOverlay
-            ? DownloadDetailsmodal(
+            ? DownloadDetailsModal(
                 onModalClosePrompted: () {
                   setState(() {
                     showOverlay = false;
