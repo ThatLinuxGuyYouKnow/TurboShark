@@ -16,7 +16,7 @@ class DownloadPromptButton extends StatelessWidget {
       },
       child: Container(
         height: 50,
-        width: 220,
+        width: 200,
         decoration: BoxDecoration(
           color: Colors.blue.shade300,
           borderRadius: BorderRadius.circular(15),

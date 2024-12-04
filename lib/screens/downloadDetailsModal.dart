@@ -36,7 +36,7 @@ class DownloadDetailsmodal extends StatelessWidget {
               Row(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(left: 10.0),
+                    padding: EdgeInsets.only(left: 40.0),
                     child: Text(
                       'New Download',
                       style: GoogleFonts.ubuntu(
@@ -44,7 +44,37 @@ class DownloadDetailsmodal extends StatelessWidget {
                     ),
                   ),
                 ],
-              )
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 40.0),
+                    child: Text(
+                      'Enter the details for your new download.',
+                      style: GoogleFonts.ubuntu(
+                          fontSize: 20, fontWeight: FontWeight.w300),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 60,
+              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(left: 40.0),
+                    child: Text(
+                      'Download URL',
+                      style: GoogleFonts.ubuntu(
+                          fontSize: 24, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
