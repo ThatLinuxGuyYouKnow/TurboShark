@@ -3,8 +3,8 @@ import 'package:turbo_shark/enums/downloadState.dart';
 import 'package:turbo_shark/widgets/downloadWidget.dart';
 
 class DownloadProvider extends ChangeNotifier {
-  List<Widget> downloads = [];
-  List<Widget> get _downloads => downloads;
+  final List<Widget> _downloads = [];
+  List<Widget> get downloads => _downloads;
 
   addDownload({
     required String downloadName,
@@ -13,5 +13,6 @@ class DownloadProvider extends ChangeNotifier {
         downloadName: downloadName,
         downloadProgress: 1,
         downloadstate: Downloadstate.inProgress));
+    notifyListeners();
   }
 }
