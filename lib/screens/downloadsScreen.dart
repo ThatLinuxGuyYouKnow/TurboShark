@@ -49,7 +49,15 @@ class _DownloadScreenState extends State<DownloadScreen> {
                   },
                 ),
         ),
-        showOverlay ? DownloadDetailsmodal() : SizedBox.shrink()
+        showOverlay
+            ? DownloadDetailsmodal(
+                onModelClosePrompted: () {
+                  setState(() {
+                    showOverlay = false;
+                  });
+                },
+              )
+            : SizedBox.shrink()
       ],
     );
   }

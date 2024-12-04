@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class DownloadDetailsmodal extends StatelessWidget {
-  DownloadDetailsmodal({super.key});
+  final Function onModelClosePrompted;
+  DownloadDetailsmodal({super.key, required this.onModelClosePrompted});
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
@@ -19,7 +20,14 @@ class DownloadDetailsmodal extends StatelessWidget {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: [Icon(Icons.cancel_outlined)],
+                children: [
+                  GestureDetector(
+                      onTap: () => onModelClosePrompted(),
+                      child: Icon(Icons.cancel_outlined)),
+                  SizedBox(
+                    width: 20,
+                  )
+                ],
               )
             ],
           ),
