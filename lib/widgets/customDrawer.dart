@@ -29,7 +29,7 @@ class CustomDrawer extends StatelessWidget {
               child: Row(
                 children: [
                   const Image(
-                    image: AssetImage('logo.png'),
+                    image: AssetImage('assets/logo.png'),
                     width: 80,
                     height: 80,
                   ),

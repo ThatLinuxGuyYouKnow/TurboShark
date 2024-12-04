@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:turbo_shark/widgets/dropdowns.dart';
 import 'package:turbo_shark/widgets/textfields.dart';
 
-class DownloadDetailsModal extends StatelessWidget {
+class DownloadDetailsModal extends StatefulWidget {
   final Function onModalClosePrompted;
 
-  const DownloadDetailsModal({super.key, required this.onModalClosePrompted});
+  const DownloadDetailsModal({Key? key, required this.onModalClosePrompted})
+      : super(key: key);
+
+  @override
+  State<DownloadDetailsModal> createState() => _DownloadDetailsModalState();
+}
+
+class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
+  String selectedPriority = "Normal"; // Default priority
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +27,7 @@ class DownloadDetailsModal extends StatelessWidget {
       color: Colors.black.withOpacity(0.3),
       child: Center(
         child: Container(
-          height: 700,
+          height: 800,
           width: 700,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -42,7 +51,7 @@ class DownloadDetailsModal extends StatelessWidget {
                   alignment: Alignment.topRight,
                   child: IconButton(
                     icon: const Icon(Icons.close, color: Colors.grey),
-                    onPressed: () => onModalClosePrompted(),
+                    onPressed: () => widget.onModalClosePrompted(),
                   ),
                 ),
               ),
@@ -65,7 +74,7 @@ class DownloadDetailsModal extends StatelessWidget {
                     Text(
                       'Enter the details for your new download.',
                       style: GoogleFonts.ubuntu(
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.w300,
                         color: Colors.grey[600],
                       ),
@@ -74,24 +83,10 @@ class DownloadDetailsModal extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 40),
+              const SizedBox(height: 30),
 
-              // Download URL Label
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                child: Text(
-                  'Download URL',
-                  style: GoogleFonts.ubuntu(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black87,
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 20),
-
-              // Custom Text Field
+              // Download URL Section
+              _buildSectionTitle('Download URL'),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40.0),
                 child: CustomTextField(
@@ -99,28 +94,117 @@ class DownloadDetailsModal extends StatelessWidget {
                   hint: 'Paste your download URL here',
                 ),
               ),
+
               const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 40.0),
-                child: Text(
-                  'File name (optional)',
-                  style: GoogleFonts.ubuntu(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.black87,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
+
+              // File Name Section
+              _buildSectionTitle('File Name (Optional)'),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 40.0),
                 child: CustomTextField(
-                  prefix: Icons.link,
+                  prefix: Icons.file_copy,
                   hint: 'my-download.mkv',
                 ),
               ),
+
+              const SizedBox(height: 20),
+
+              // Download Location Dropdown
+              _buildSectionTitle('Download Location'),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                child: DownloadLocationDropdown(
+                  onNewLocationSelected: (String location) {
+                    // Handle location selection
+                  },
+                ),
+              ),
+
+              const SizedBox(height: 20),
+
+              // Download Priority Section
+              _buildSectionTitle('Download Priority'),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                child: Column(
+                  children: [
+                    RadioListTile<String>(
+                      title: const Text('High'),
+                      value: "High",
+                      groupValue: selectedPriority,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedPriority = value!;
+                        });
+                      },
+                    ),
+                    RadioListTile<String>(
+                      title: const Text('Normal'),
+                      value: "Normal",
+                      groupValue: selectedPriority,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedPriority = value!;
+                        });
+                      },
+                    ),
+                    RadioListTile<String>(
+                      title: const Text('Low'),
+                      value: "Low",
+                      groupValue: selectedPriority,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedPriority = value!;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+
+              const Spacer(),
+
+              // Submit Button
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Handle submit logic
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blue.shade300,
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      'Start Download',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 20),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(String title) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40.0, vertical: 10.0),
+      child: Text(
+        title,
+        style: GoogleFonts.ubuntu(
+          fontSize: 22,
+          fontWeight: FontWeight.w700,
+          color: Colors.black87,
         ),
       ),
     );
