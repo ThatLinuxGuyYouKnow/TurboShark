@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:turbo_shark/homepage.dart';
+import 'package:turbo_shark/models/downloadProvider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+      create: (context) => DownloadProvider(), child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {
