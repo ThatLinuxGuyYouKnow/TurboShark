@@ -51,7 +51,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
         ),
         showOverlay
             ? DownloadDetailsmodal(
-                onModelClosePrompted: () {
+                onModalClosePrompted: () {
                   setState(() {
                     showOverlay = false;
                   });
