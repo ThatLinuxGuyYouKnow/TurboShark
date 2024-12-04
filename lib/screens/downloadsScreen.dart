@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:turbo_shark/models/downloadProvider.dart';
 import 'package:turbo_shark/screens/downloadDetailsModal.dart';
 import 'package:turbo_shark/widgets/appbar.dart';
+import 'package:turbo_shark/widgets/downloadWidget.dart';
 
 class DownloadScreen extends StatefulWidget {
   final BoxConstraints constraints;
@@ -15,10 +16,10 @@ class DownloadScreen extends StatefulWidget {
 
 class _DownloadScreenState extends State<DownloadScreen> {
   bool showOverlay = false;
+
   @override
   Widget build(BuildContext context) {
     final downloadProvider = Provider.of<DownloadProvider>(context);
-    List<Widget> downloadList = downloadProvider.downloads;
 
     return Stack(
       children: [
@@ -33,7 +34,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
             appBarTitle: 'Downloads',
             constraints: widget.constraints,
           ),
-          body: downloadList.isEmpty
+          body: downloadProvider.downloads.isEmpty
               ? Center(
                   child: Text(
                     'No downloads yet',
@@ -43,9 +44,10 @@ class _DownloadScreenState extends State<DownloadScreen> {
               : ListView.builder(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  itemCount: downloadList.length,
+                  itemCount: downloadProvider.downloads.length,
                   itemBuilder: (context, index) {
-                    return downloadList[index];
+                    final download = downloadProvider.downloads[index];
+                    return DownloadWidget(download: download);
                   },
                 ),
         ),
@@ -57,7 +59,7 @@ class _DownloadScreenState extends State<DownloadScreen> {
                   });
                 },
               )
-            : SizedBox.shrink()
+            : SizedBox.shrink(),
       ],
     );
   }

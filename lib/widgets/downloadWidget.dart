@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:turbo_shark/enums/downloadState.dart';
+import 'package:turbo_shark/models/download.dart';
 
 class DownloadWidget extends StatelessWidget {
-  final String downloadName;
-  final int downloadProgress;
-  final Downloadstate downloadstate;
-  DownloadWidget(
-      {super.key,
-      required this.downloadName,
-      required this.downloadProgress,
-      required this.downloadstate});
+  final Download download;
+
+  const DownloadWidget({Key? key, required this.download}) : super(key: key);
+
+  @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Text(downloadName),
-          LinearProgressIndicator(
-            value: downloadProgress.toDouble(),
-          ),
-          if (downloadstate == Downloadstate.inProgress) Text('In Progress')
-        ],
+    return ListTile(
+      title: Text(download.name),
+      subtitle: LinearProgressIndicator(value: download.progress),
+      trailing: Text(
+        download.state.name,
+        style: TextStyle(
+          color: download.state == Downloadstate.inProgress
+              ? Colors.orange
+              : Colors.green,
+        ),
       ),
     );
   }
