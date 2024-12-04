@@ -1,9 +1,13 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:turbo_shark/homepage.dart';
 import 'package:turbo_shark/models/downloadProvider.dart';
+import 'package:turbo_shark/ssl/ssl_handler.dart';
 
 void main() {
+  HttpOverrides.global = MyHttpOverrides();
   runApp(ChangeNotifierProvider(
       create: (context) => DownloadProvider(), child: const MyApp()));
 }

@@ -40,7 +40,7 @@ class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
               ))
           .toList();
       if (availableLocations.isNotEmpty) {
-        selectedLocation = availableLocations.first.value as String?;
+        selectedLocation = availableLocations.first.value;
       }
     });
   }
@@ -55,7 +55,7 @@ class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
         setState(() {
           selectedLocation = value!;
         });
-        widget.onNewLocationSelected(value!);
+        widget.onNewLocationSelected(selectedLocation!);
       },
     );
   }

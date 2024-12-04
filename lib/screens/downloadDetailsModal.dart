@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:turbo_shark/logic/downloadManager.dart';
@@ -18,6 +20,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
   String selectedPriority = "Normal"; // Default priority
   String? downloadUrl;
   String? downloadPATH;
+  String fileName = 'download' + DateTime.now().toString();
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -111,7 +114,11 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                 child: CustomTextField(
                   prefix: Icons.file_copy,
                   hint: 'my-download.mkv',
-                  textFormString: (String text) {},
+                  textFormString: (String text) {
+                    setState(() {
+                      fileName = text;
+                    });
+                  },
                 ),
               ),
 
@@ -182,7 +189,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                     onPressed: () async {
                       final downloader = ConcurrentFileDownloader(
                         url: downloadUrl ?? '',
-                        savePath: downloadPATH ?? '',
+                        savePath: downloadPATH ?? '$fileName',
                         segmentCount: 4, // Number of concurrent segments
                       );
 
