@@ -1,25 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:turbo_shark/enums/downloadState.dart';
-import 'package:turbo_shark/widgets/downloadWidget.dart';
+import 'package:turbo_shark/models/download.dart';
 
 class DownloadProvider extends ChangeNotifier {
-  final List<Widget> _downloads = [];
-  List<Widget> get downloads => _downloads;
-  final List<Widget> _currentDownloads = [];
-  List<Widget> get currentDownloads => _currentDownloads;
-  addDownload({
-    required String downloadName,
-  }) {
-    _downloads.add(
-      DownloadWidget(
-          downloadName: downloadName,
-          downloadProgress: 1,
-          downloadstate: Downloadstate.inProgress),
-    );
-    _currentDownloads.add(DownloadWidget(
-        downloadName: downloadName,
-        downloadProgress: 1,
-        downloadstate: Downloadstate.inProgress));
+  final List<Download> _downloads = [];
+  List<Download> get downloads => _downloads;
+
+  void addDownload(String downloadName) {
+    final download = Download(name: downloadName);
+    _downloads.add(download);
+    notifyListeners();
+  }
+
+  void updateProgress(String downloadName, double progress) {
+    final download = _downloads.firstWhere((d) => d.name == downloadName);
+    download.progress = progress;
+    notifyListeners();
+  }
+
+  void updateState(String downloadName, Downloadstate state) {
+    final download = _downloads.firstWhere((d) => d.name == downloadName);
+    download.state = state;
     notifyListeners();
   }
 }
