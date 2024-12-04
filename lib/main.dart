@@ -7,7 +7,7 @@ import 'package:turbo_shark/models/downloadProvider.dart';
 import 'package:turbo_shark/ssl/ssl_handler.dart';
 
 void main() {
-  HttpOverrides.global = new MyHttpOverrides();
+  HttpOverrides.global = MyHttpOverrides();
   runApp(ChangeNotifierProvider(
       create: (context) => DownloadProvider(), child: const MyApp()));
 }

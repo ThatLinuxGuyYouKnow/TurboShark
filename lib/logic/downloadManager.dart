@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
 
+import 'package:turbo_shark/ssl/ssl_handler.dart';
+
 class ConcurrentFileDownloader {
   final String url;
   final int segmentCount;
@@ -71,9 +73,11 @@ class ConcurrentFileDownloader {
     }
   }
 
-  // Static method to be run in isolate
   static Future<void> _downloadSegmentIsolate(
       Map<String, dynamic> params) async {
+    // Set the custom HttpOverrides in the isolate
+    HttpOverrides.global = MyHttpOverrides();
+
     final sendPort = params['sendPort'] as SendPort;
     final url = params['url'] as String;
     final start = params['start'] as int;
@@ -87,7 +91,7 @@ class ConcurrentFileDownloader {
       final response = await request.close();
       final file = await File(savePath).open(mode: FileMode.writeOnlyAppend);
 
-      // Write to the file manually
+      // Write the received data manually
       int currentPosition = start;
       await for (final data in response) {
         await file.setPosition(currentPosition);
@@ -96,7 +100,6 @@ class ConcurrentFileDownloader {
       }
 
       await file.close();
-
       sendPort.send({'success': true});
     } catch (e) {
       sendPort.send({'error': e.toString()});
