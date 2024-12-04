@@ -7,8 +7,12 @@ class CustomAppBarForDownloads extends StatelessWidget
     implements PreferredSizeWidget {
   final String appBarTitle;
   final BoxConstraints constraints;
+  final Function onNewDownloadPressed;
   const CustomAppBarForDownloads(
-      {super.key, required this.appBarTitle, required this.constraints});
+      {super.key,
+      required this.appBarTitle,
+      required this.constraints,
+      required this.onNewDownloadPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +40,7 @@ class CustomAppBarForDownloads extends StatelessWidget
                 SizedBox(
                   width: constraints.maxWidth > 500 ? 50 : 20,
                 ),
-                DownloadPromptButton()
+                DownloadPromptButton(onNewDownloadPressed: onNewDownloadPressed)
               ],
             ),
           ),

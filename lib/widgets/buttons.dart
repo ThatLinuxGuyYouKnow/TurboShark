@@ -4,12 +4,15 @@ import 'package:provider/provider.dart';
 import 'package:turbo_shark/models/downloadProvider.dart';
 
 class DownloadPromptButton extends StatelessWidget {
-  DownloadPromptButton({super.key});
+  final Function onNewDownloadPressed;
+  const DownloadPromptButton({super.key, required this.onNewDownloadPressed});
+
+  @override
   Widget build(BuildContext context) {
     final downloadProvider = Provider.of<DownloadProvider>(context);
     return GestureDetector(
       onTap: () {
-        downloadProvider.addDownload(downloadName: 'Test');
+        onNewDownloadPressed();
       },
       child: Container(
         height: 50,
@@ -17,6 +20,14 @@ class DownloadPromptButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.blue.shade300,
           borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.blue.shade200.withOpacity(0.5),
+              spreadRadius: 1,
+              blurRadius: 5,
+              offset: const Offset(0, 3),
+            ),
+          ],
         ),
         child: Center(
           child: Padding(
@@ -24,7 +35,7 @@ class DownloadPromptButton extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Icon(
+                const Icon(
                   Icons.add,
                   color: Colors.white,
                 ),
@@ -32,8 +43,8 @@ class DownloadPromptButton extends StatelessWidget {
                   'New Download',
                   style: GoogleFonts.ubuntu(
                       color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500),
                 ),
               ],
             ),
