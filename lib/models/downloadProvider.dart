@@ -5,7 +5,8 @@ import 'package:turbo_shark/widgets/downloadWidget.dart';
 class DownloadProvider extends ChangeNotifier {
   final List<Widget> _downloads = [];
   List<Widget> get downloads => _downloads;
-
+  final List<Widget> _currentDownloads = [];
+  List<Widget> get currentDownloads => _currentDownloads;
   addDownload({
     required String downloadName,
   }) {
