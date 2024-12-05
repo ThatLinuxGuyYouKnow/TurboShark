@@ -109,7 +109,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
       decoration: BoxDecoration(
         color: isSelected
-            ? Colors.white.withOpacity(0.2)
+            ? Colors.white.withOpacity(0.3)
             : Colors.white.withOpacity(0.1),
         borderRadius: BorderRadius.circular(12),
       ),
