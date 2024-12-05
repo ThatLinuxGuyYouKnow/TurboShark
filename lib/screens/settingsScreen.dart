@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:turbo_shark/widgets/appbar.dart';
+import 'package:turbo_shark/widgets/dropdowns.dart';
 
 class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -22,9 +23,14 @@ class SettingsScreen extends StatelessWidget {
               style:
                   GoogleFonts.ubuntu(fontWeight: FontWeight.w500, fontSize: 20),
             ),
-            SizedBox(width: 10),
-            Text(getDownloadsDirectory().toString())
-          ])
+          ]),
+          SizedBox(height: 20),
+          Row(
+            children: [
+              SizedBox(width: 20),
+              DownloadLocationDropdown(onNewLocationSelected: (loocation) {}),
+            ],
+          )
         ],
       ),
     );
