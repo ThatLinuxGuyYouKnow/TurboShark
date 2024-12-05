@@ -29,7 +29,7 @@ class DownloadWidget extends StatelessWidget {
                   color: Colors.blue.shade100,
                   size: 40,
                 ),
-                const SizedBox(width: 16),
+                const SizedBox(width: 22),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
