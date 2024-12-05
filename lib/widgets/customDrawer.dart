@@ -133,7 +133,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   Expanded(
                     child: Text(
                       text,
-                      style: GoogleFonts.dmSans(
+                      style: GoogleFonts.ubuntu(
                         fontSize: 16,
                         color: Colors.white,
                         fontWeight: FontWeight.w400,

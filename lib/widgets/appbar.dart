@@ -36,10 +36,10 @@ class CustomAppBarForDownloads extends StatelessWidget
                   Flexible(
                     child: Text(
                       appBarTitle,
-                      style: GoogleFonts.kanit(
+                      style: GoogleFonts.ubuntu(
                         color: Colors.black,
                         fontSize: isWideScreen ? 30 : 24,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w600,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -92,12 +92,31 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
   final String textContent;
   CustomAppbar({super.key, required this.textContent});
   Widget build(BuildContext context) {
-    return AppBar(
-        title: Text(
-      textContent,
-      style: GoogleFonts.ubuntu(fontSize: 18, fontWeight: FontWeight.w700),
-    ));
+    return LayoutBuilder(builder: (context, constraints) {
+      bool isWideScreen = constraints.maxWidth > 600;
+      return AppBar(
+        toolbarHeight: 150,
+        title: Column(
+          children: [
+            Text(
+              textContent,
+              style: GoogleFonts.ubuntu(
+                  fontSize: isWideScreen ? 30 : 24,
+                  fontWeight: FontWeight.w700),
+            ),
+          ],
+        ),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(1),
+          child: Divider(
+            color: Colors.blue.withOpacity(0.1),
+            height: 1,
+            thickness: 1,
+          ),
+        ),
+      );
+    });
   }
 
-  Size get preferredSize => const Size.fromHeight(137);
+  Size get preferredSize => const Size.fromHeight(150);
 }
