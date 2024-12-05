@@ -43,6 +43,7 @@ class CustomDrawer extends StatelessWidget {
 
   Widget _buildDrawerHeader(bool isCompactMode) {
     return DrawerHeader(
+      decoration: BoxDecoration(shape: BoxShape.rectangle),
       margin: EdgeInsets.zero,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
@@ -109,7 +110,7 @@ class CustomDrawer extends StatelessWidget {
                     child: Text(
                       text,
                       style: GoogleFonts.dmSans(
-                        fontSize: 14,
+                        fontSize: 16,
                         color: Colors.white,
                         fontWeight: FontWeight.w400,
                       ),
