@@ -136,7 +136,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                       style: GoogleFonts.ubuntu(
                         fontSize: 16,
                         color: Colors.white,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w500,
                       ),
                       textAlign: TextAlign.start,
                     ),
