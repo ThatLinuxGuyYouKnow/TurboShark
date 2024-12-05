@@ -10,6 +10,7 @@ class CustomDrawer extends StatelessWidget {
     final isCompactMode = screenWidth < 600;
 
     return Drawer(
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       width: isCompactMode ? screenWidth * 0.75 : screenWidth * 0.16,
       child: Container(
         decoration: BoxDecoration(
@@ -43,7 +44,6 @@ class CustomDrawer extends StatelessWidget {
 
   Widget _buildDrawerHeader(bool isCompactMode) {
     return DrawerHeader(
-      decoration: BoxDecoration(shape: BoxShape.rectangle),
       margin: EdgeInsets.zero,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Row(
