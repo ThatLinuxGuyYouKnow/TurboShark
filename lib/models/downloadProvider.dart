@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:turbo_shark/enums/downloadState.dart';
+import 'package:turbo_shark/logic/downloadManager.dart';
 import 'package:turbo_shark/models/download.dart';
 
 class DownloadProvider extends ChangeNotifier {
@@ -12,6 +14,30 @@ class DownloadProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void startDownload(BuildContext context, String url, String savePath) {
+    final provider = Provider.of<DownloadProvider>(context, listen: false);
+
+    // Add the download to the provider
+    provider.addDownload(url);
+
+    final downloader = ConcurrentFileDownloader(
+      url: url,
+      savePath: savePath,
+      segmentCount: 4,
+      onProgress: (downloadName, progress) {
+        provider.updateProgress(downloadName, progress);
+      },
+      onStateChange: (downloadName, state) {
+        provider.updateState(downloadName, state);
+      },
+    );
+
+    downloader.download().catchError((error) {
+      print('Download failed: $error');
+      provider.updateState(url, Downloadstate.failed);
+    });
+  }
+
   void updateProgress(String downloadName, double progress) {
     final download = _downloads.firstWhere((d) => d.name == downloadName);
     download.progress = progress;
@@ -19,8 +45,17 @@ class DownloadProvider extends ChangeNotifier {
   }
 
   void updateState(String downloadName, Downloadstate state) {
-    final download = _downloads.firstWhere((d) => d.name == downloadName);
-    download.state = state;
-    notifyListeners();
+    try {
+      final download = _downloads.firstWhere((d) => d.name == downloadName);
+
+      // Prevent unnecessary updates
+      if (download.state != state) {
+        download.state = state;
+        notifyListeners();
+      }
+    } catch (e) {
+      print('Error updating download state: $e');
+      // Optionally, you could add error handling or logging here
+    }
   }
 }

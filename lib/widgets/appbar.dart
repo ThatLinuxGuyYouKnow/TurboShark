@@ -50,7 +50,7 @@ class CustomAppBarForDownloads extends StatelessWidget
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(1),
         child: Divider(
-          color: Colors.black.withOpacity(0.2),
+          color: Colors.black.withOpacity(0.7),
           height: 1,
           thickness: 1,
         ),

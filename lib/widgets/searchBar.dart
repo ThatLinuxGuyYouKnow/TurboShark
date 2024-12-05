@@ -6,7 +6,7 @@ class Searchbar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         height: constraints.maxHeight > 700 ? 50 : 40,
-        width: constraints.maxWidth > 470 ? 400 : 100,
+        width: constraints.maxWidth > 470 ? 300 : 100,
         decoration: BoxDecoration(
             border: Border.all(color: Colors.black),
             color: Colors.white,

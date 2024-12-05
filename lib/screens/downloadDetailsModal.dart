@@ -1,8 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:turbo_shark/logic/downloadManager.dart';
+import 'package:turbo_shark/models/downloadProvider.dart';
 import 'package:turbo_shark/widgets/dropdowns.dart';
 import 'package:turbo_shark/widgets/textfields.dart';
 
@@ -25,7 +25,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
-
+    final downloadState = Provider.of<DownloadProvider>(context);
     return Container(
       height: screenHeight,
       width: screenWidth,
@@ -187,18 +187,8 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () async {
-                      final downloader = ConcurrentFileDownloader(
-                        url: downloadUrl ?? '',
-                        savePath: downloadPATH ?? '$fileName',
-                        segmentCount: 4, // Number of concurrent segments
-                      );
-
-                      try {
-                        await downloader.download();
-                        print('Download completed successfully');
-                      } catch (e) {
-                        print('Download failed: $e');
-                      }
+                      downloadState.startDownload(context, downloadUrl ?? '',
+                          downloadPATH ?? '' + fileName);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue.shade300,
