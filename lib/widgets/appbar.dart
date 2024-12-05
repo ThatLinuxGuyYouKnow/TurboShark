@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:turbo_shark/models/downloadProvider.dart';
 import 'package:turbo_shark/widgets/buttons.dart';
 import 'package:turbo_shark/widgets/searchBar.dart';
 
@@ -41,7 +39,7 @@ class CustomAppBarForDownloads extends StatelessWidget
                       style: GoogleFonts.kanit(
                         color: Colors.black,
                         fontSize: isWideScreen ? 30 : 24,
-                        fontWeight: FontWeight.bold,
+                        fontWeight: FontWeight.w800,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -76,7 +74,7 @@ class CustomAppBarForDownloads extends StatelessWidget
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(1),
             child: Divider(
-              color: Colors.black.withOpacity(0.7),
+              color: Colors.blue.withOpacity(0.1),
               height: 1,
               thickness: 1,
             ),
@@ -87,5 +85,19 @@ class CustomAppBarForDownloads extends StatelessWidget
   }
 
   @override
+  Size get preferredSize => const Size.fromHeight(137);
+}
+
+class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
+  final String textContent;
+  CustomAppbar({super.key, required this.textContent});
+  Widget build(BuildContext context) {
+    return AppBar(
+        title: Text(
+      textContent,
+      style: GoogleFonts.ubuntu(fontSize: 18, fontWeight: FontWeight.w700),
+    ));
+  }
+
   Size get preferredSize => const Size.fromHeight(137);
 }

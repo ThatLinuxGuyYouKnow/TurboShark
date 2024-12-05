@@ -6,9 +6,7 @@ import 'package:turbo_shark/widgets/appbar.dart';
 import 'package:turbo_shark/widgets/downloadWidget.dart';
 
 class DownloadScreen extends StatefulWidget {
-  final BoxConstraints constraints;
-
-  const DownloadScreen({super.key, required this.constraints});
+  const DownloadScreen({super.key});
 
   @override
   State<DownloadScreen> createState() => _DownloadScreenState();

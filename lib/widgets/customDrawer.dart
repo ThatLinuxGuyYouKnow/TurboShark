@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:turbo_shark/screens/downloadsScreen.dart';
 
-class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({Key? key}) : super(key: key);
+import 'package:turbo_shark/screens/settingsScreen.dart';
+
+class CustomDrawer extends StatefulWidget {
+  final Function(Widget) onScreenChanged;
+
+  const CustomDrawer({Key? key, required this.onScreenChanged})
+      : super(key: key);
+
+  @override
+  _CustomDrawerState createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -27,15 +40,22 @@ class CustomDrawer extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             _buildDrawerHeader(isCompactMode),
-            ...drawerItems
-                .map((item) => _buildDrawerTile(
-                      context: context,
-                      icon: item.icon,
-                      text: item.text,
-                      onTap: item.onTap,
-                      isCompactMode: isCompactMode,
-                    ))
-                .toList(),
+            ...List.generate(drawerItems.length, (index) {
+              final item = drawerItems[index];
+              return _buildDrawerTile(
+                context: context,
+                icon: item.icon,
+                text: item.text,
+                isSelected: _selectedIndex == index,
+                onTap: () {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                  widget.onScreenChanged(item.screen);
+                },
+                isCompactMode: isCompactMode,
+              );
+            }),
           ],
         ),
       ),
@@ -43,6 +63,7 @@ class CustomDrawer extends StatelessWidget {
   }
 
   Widget _buildDrawerHeader(bool isCompactMode) {
+    // (Keep your existing _buildDrawerHeader implementation)
     return DrawerHeader(
       margin: EdgeInsets.zero,
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -82,11 +103,14 @@ class CustomDrawer extends StatelessWidget {
     required String text,
     required VoidCallback onTap,
     required bool isCompactMode,
+    bool isSelected = false,
   }) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.1),
+        color: isSelected
+            ? Colors.white.withOpacity(0.2)
+            : Colors.white.withOpacity(0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Material(
@@ -130,12 +154,12 @@ class CustomDrawer extends StatelessWidget {
 class DrawerItemConfig {
   final IconData icon;
   final String text;
-  final VoidCallback onTap;
+  final Widget screen;
 
   DrawerItemConfig({
     required this.icon,
     required this.text,
-    required this.onTap,
+    this.screen = const DownloadScreen(),
   });
 }
 
@@ -143,29 +167,21 @@ final List<DrawerItemConfig> drawerItems = [
   DrawerItemConfig(
     icon: Icons.download,
     text: 'Downloads',
-    onTap: () {
-      // Handle downloads
-    },
+    screen: DownloadScreen(),
   ),
   DrawerItemConfig(
     icon: Icons.history,
     text: 'History',
-    onTap: () {
-      // Handle history
-    },
+    // screen: HistoryScreen(),
   ),
   DrawerItemConfig(
     icon: Icons.settings,
     text: 'Settings',
-    onTap: () {
-      // Handle settings
-    },
+    screen: SettingsScreen(),
   ),
   DrawerItemConfig(
     icon: Icons.help,
     text: 'Help',
-    onTap: () {
-      // Handle help
-    },
+    //  screen: HelpScreen(),
   ),
 ];
