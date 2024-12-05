@@ -1,45 +1,52 @@
-import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
 
+import 'package:turbo_shark/enums/downloadState.dart';
 import 'package:turbo_shark/ssl/ssl_handler.dart';
 
 class ConcurrentFileDownloader {
   final String url;
   final int segmentCount;
   final String savePath;
+  final Function(String, double)? onProgress; // Callback for progress
+  final Function(String, Downloadstate)? onStateChange; // Callback for state
 
   ConcurrentFileDownloader({
     required this.url,
     this.segmentCount = 4,
     required this.savePath,
+    this.onProgress,
+    this.onStateChange,
   });
 
   Future<void> download() async {
-    // Get file size first
-    print('starting downlad');
-    final contentLength = await _getContentLength();
+    onStateChange?.call(url, Downloadstate.inProgress);
 
-    if (contentLength == null) {
-      throw Exception('Could not determine file size');
+    try {
+      final contentLength = await _getContentLength();
+      if (contentLength == null) {
+        throw Exception('Could not determine file size');
+      }
+
+      final segmentSize = contentLength ~/ segmentCount;
+      final file = await File(savePath).create(recursive: true);
+
+      final downloadTasks = <Future>[];
+      for (int i = 0; i < segmentCount; i++) {
+        final start = i * segmentSize;
+        final end = (i == segmentCount - 1)
+            ? contentLength - 1
+            : start + segmentSize - 1;
+
+        downloadTasks.add(_downloadSegment(start, end, i, contentLength));
+      }
+
+      await Future.wait(downloadTasks);
+      onStateChange?.call(url, Downloadstate.done);
+    } catch (e) {
+      onStateChange?.call(url, Downloadstate.failed);
+      rethrow;
     }
-
-    // Calculate segment sizes
-    final segmentSize = contentLength ~/ segmentCount;
-    final file = await File(savePath).create(recursive: true);
-
-    // Prepare download segments
-    final downloadTasks = <Future>[];
-    for (int i = 0; i < segmentCount; i++) {
-      final start = i * segmentSize;
-      final end =
-          (i == segmentCount - 1) ? contentLength - 1 : start + segmentSize - 1;
-
-      downloadTasks.add(_downloadSegment(start, end, i));
-    }
-
-    // Wait for all segments to complete
-    await Future.wait(downloadTasks);
   }
 
   Future<int?> _getContentLength() async {
@@ -54,7 +61,13 @@ class ConcurrentFileDownloader {
     }
   }
 
-  Future<void> _downloadSegment(int start, int end, int segmentIndex) async {
+  Future<void> _downloadSegment(
+    int start,
+    int end,
+    int segmentIndex,
+    int totalSize,
+  ) async {
+    int bytesDownloaded = 0;
     final receivePort = ReceivePort();
 
     await Isolate.spawn(_downloadSegmentIsolate, {
@@ -63,19 +76,21 @@ class ConcurrentFileDownloader {
       'end': end,
       'sendPort': receivePort.sendPort,
       'savePath': savePath,
-      'segmentIndex': segmentIndex,
     });
 
-    final result = await receivePort.first as Map<String, dynamic>;
-
-    if (result['error'] != null) {
-      throw Exception('Download segment error: ${result['error']}');
+    await for (final message in receivePort) {
+      if (message is Map<String, dynamic> && message['bytes'] != null) {
+        bytesDownloaded += message['bytes'] as int;
+        final progress = bytesDownloaded / totalSize;
+        onProgress?.call(url, progress); // Notify progress
+      } else if (message is Map<String, dynamic> && message['done'] == true) {
+        break;
+      }
     }
   }
 
   static Future<void> _downloadSegmentIsolate(
       Map<String, dynamic> params) async {
-    // Set the custom HttpOverrides in the isolate
     HttpOverrides.global = MyHttpOverrides();
 
     final sendPort = params['sendPort'] as SendPort;
@@ -91,34 +106,20 @@ class ConcurrentFileDownloader {
       final response = await request.close();
       final file = await File(savePath).open(mode: FileMode.writeOnlyAppend);
 
-      // Write the received data manually
       int currentPosition = start;
       await for (final data in response) {
         await file.setPosition(currentPosition);
         await file.writeFrom(data);
         currentPosition += data.length;
+
+        // Send progress updates back to the main isolate
+        sendPort.send({'bytes': data.length});
       }
 
       await file.close();
-      sendPort.send({'success': true});
+      sendPort.send({'done': true});
     } catch (e) {
       sendPort.send({'error': e.toString()});
     }
-  }
-}
-
-// Example usage
-void main() async {
-  final downloader = ConcurrentFileDownloader(
-    url: 'https://example.com/largefile.zip',
-    savePath: '/path/to/save/largefile.zip',
-    segmentCount: 4, // Number of concurrent segments
-  );
-
-  try {
-    await downloader.download();
-    print('Download completed successfully');
-  } catch (e) {
-    print('Download failed: $e');
   }
 }
