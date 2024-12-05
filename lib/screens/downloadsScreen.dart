@@ -32,7 +32,6 @@ class _DownloadScreenState extends State<DownloadScreen> {
               });
             },
             appBarTitle: 'Downloads',
-            constraints: widget.constraints,
           ),
           body: downloadProvider.downloads.isEmpty
               ? Center(
