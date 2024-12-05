@@ -26,7 +26,7 @@ class DownloadWidget extends StatelessWidget {
                 // File type icon
                 Icon(
                   _getIconForFileType(download.name),
-                  color: Colors.blue.shade300,
+                  color: Colors.blue.shade100,
                   size: 40,
                 ),
                 const SizedBox(width: 16),
