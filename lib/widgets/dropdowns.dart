@@ -6,8 +6,7 @@ class DownloadLocationDropdown extends StatefulWidget {
   final Function(String) onNewLocationSelected;
 
   const DownloadLocationDropdown(
-      {Key? key, required this.onNewLocationSelected})
-      : super(key: key);
+      {super.key, required this.onNewLocationSelected});
 
   @override
   _DownloadLocationDropdownState createState() =>
@@ -66,12 +65,15 @@ class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
           });
           widget.onNewLocationSelected(selectedLocation!);
         },
+        isExpanded: true,
       ),
     );
   }
 }
 
 class ConcurrentDownloadsSelector extends StatefulWidget {
+  const ConcurrentDownloadsSelector({super.key});
+
   @override
   _ConcurrentDownloadsSelectorState createState() =>
       _ConcurrentDownloadsSelectorState();
