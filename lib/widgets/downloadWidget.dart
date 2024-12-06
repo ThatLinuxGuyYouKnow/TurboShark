@@ -13,68 +13,72 @@ class DownloadWidget extends StatelessWidget {
       builder: (context, constraints) {
         bool isCompactMode = constraints.maxWidth < 400;
 
-        return Card(
-          elevation: 2,
-          margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Row(
-              children: [
-                // File type icon
-                Icon(
-                  _getIconForFileType(download.name),
-                  color: Colors.blue.shade100,
-                  size: 40,
-                ),
-                const SizedBox(width: 22),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Filename with truncation
-                      Text(
-                        download.name,
-                        style: GoogleFonts.ubuntu(
-                          fontSize: isCompactMode ? 14 : 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(height: 8),
-                      // Progress indicator
-                      LinearProgressIndicator(
-                        value: download.progress,
-                        backgroundColor: Colors.grey.shade200,
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          _getProgressColor(download.state),
-                        ),
-                        minHeight: 6,
-                      ),
-                    ],
+        return Container(
+          height: 100,
+          child: Card(
+            color: Colors.white,
+            elevation: 2,
+            margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
+                children: [
+                  // File type icon
+                  Icon(
+                    _getIconForFileType(download.name),
+                    color: Colors.blue.shade100,
+                    size: 40,
                   ),
-                ),
-                const SizedBox(width: 16),
-                // Download state
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: _getStateBackgroundColor(download.state),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    download.state.name.toUpperCase(),
-                    style: GoogleFonts.ubuntu(
-                      color: _getStateTextColor(download.state),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
+                  const SizedBox(width: 22),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Filename with truncation
+                        Text(
+                          download.name,
+                          style: GoogleFonts.ubuntu(
+                            fontSize: isCompactMode ? 14 : 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 8),
+                        // Progress indicator
+                        LinearProgressIndicator(
+                          value: download.progress,
+                          backgroundColor: Colors.grey[50],
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            _getProgressColor(download.state),
+                          ),
+                          minHeight: 6,
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ],
+                  const SizedBox(width: 16),
+                  // Download state
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: _getStateBackgroundColor(download.state),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      download.state.name.toUpperCase(),
+                      style: GoogleFonts.ubuntu(
+                        color: _getStateTextColor(download.state),
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );
