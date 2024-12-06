@@ -48,6 +48,7 @@ class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
+      focusColor: Colors.white,
       items: availableLocations,
       value: selectedLocation,
       onChanged: (value) {
