@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'download_history.dart';
+import 'package:turbo_shark/models/download_history.dart';
 
 class DownloadRepository {
   static const String _boxName = 'downloadHistory';
