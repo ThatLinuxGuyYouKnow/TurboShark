@@ -61,3 +61,37 @@ class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
     );
   }
 }
+
+class ConcurrentDownloadsSelector extends StatefulWidget {
+  @override
+  _ConcurrentDownloadsSelectorState createState() =>
+      _ConcurrentDownloadsSelectorState();
+}
+
+class _ConcurrentDownloadsSelectorState
+    extends State<ConcurrentDownloadsSelector> {
+  final List<String> maxConcurrentDownloads = ['1', '2', '3', '4'];
+  String? selectedValue; // Holds the currently selected value
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton<String>(
+      focusColor: Colors.white,
+      items: maxConcurrentDownloads
+          .map((download) => DropdownMenuItem(
+                value: download,
+                child: Text(download),
+              ))
+          .toList(),
+      value: selectedValue,
+      hint: Text('Select downloads'), // Placeholder text
+      onChanged: (value) {
+        setState(() {
+          selectedValue = value;
+        });
+        print('Selected: $value');
+      },
+      isExpanded: true, // Ensures full width of the dropdown
+    );
+  }
+}

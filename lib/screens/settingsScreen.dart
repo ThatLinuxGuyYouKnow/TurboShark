@@ -30,7 +30,18 @@ class SettingsScreen extends StatelessWidget {
               SizedBox(width: 20),
               DownloadLocationDropdown(onNewLocationSelected: (loocation) {}),
             ],
-          )
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Row(children: [
+            SizedBox(width: 20),
+            Text(
+              'Max concurrent Downloads',
+              style:
+                  GoogleFonts.ubuntu(fontWeight: FontWeight.w500, fontSize: 20),
+            ),
+          ]),
         ],
       ),
     );
