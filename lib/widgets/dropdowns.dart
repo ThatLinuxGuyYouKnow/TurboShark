@@ -49,7 +49,7 @@ class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.black.withOpacity(0.4)),
+          border: Border.all(color: Colors.black.withOpacity(0.2)),
           borderRadius: BorderRadius.circular(10)),
       height: 60,
       width: MediaQuery.of(context).size.width,
@@ -89,7 +89,7 @@ class _ConcurrentDownloadsSelectorState
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.black.withOpacity(0.4)),
+          border: Border.all(color: Colors.black.withOpacity(0.2)),
           borderRadius: BorderRadius.circular(10)),
       height: 60,
       width: MediaQuery.of(context).size.width,
@@ -133,7 +133,7 @@ class _DownloadPrioritySelectorState extends State<DownloadPrioritySelector> {
     return Container(
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black.withOpacity(0.4)),
+        border: Border.all(color: Colors.black.withOpacity(0.2)),
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
       ),
