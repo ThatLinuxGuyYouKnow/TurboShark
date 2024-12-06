@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AutoResumeSwitch extends StatefulWidget {
   const AutoResumeSwitch({super.key});
@@ -17,7 +18,7 @@ class _AutoResumeSwitchState extends State<AutoResumeSwitch> {
       children: [
         Text(
           'Auto Resume Downloads',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+          style: GoogleFonts.ubuntu(fontSize: 18, fontWeight: FontWeight.w600),
         ),
         SizedBox(
           width: 10,

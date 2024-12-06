@@ -71,7 +71,7 @@ class SettingsScreen extends StatelessWidget {
             height: 30,
           ),
           const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.symmetric(horizontal: 30.0),
             child: AutoResumeSwitch(),
           ),
         ],
