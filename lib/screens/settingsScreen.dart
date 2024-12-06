@@ -25,11 +25,10 @@ class SettingsScreen extends StatelessWidget {
             ),
           ]),
           SizedBox(height: 20),
-          Row(
-            children: [
-              SizedBox(width: 20),
-              DownloadLocationDropdown(onNewLocationSelected: (loocation) {}),
-            ],
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child:
+                DownloadLocationDropdown(onNewLocationSelected: (loocation) {}),
           ),
           SizedBox(
             height: 30,
@@ -42,6 +41,13 @@ class SettingsScreen extends StatelessWidget {
                   GoogleFonts.ubuntu(fontWeight: FontWeight.w500, fontSize: 20),
             ),
           ]),
+          const SizedBox(
+            height: 30,
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: ConcurrentDownloadsSelector(),
+          )
         ],
       ),
     );

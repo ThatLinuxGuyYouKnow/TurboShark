@@ -47,17 +47,26 @@ class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      focusColor: Colors.white,
-      items: availableLocations,
-      value: selectedLocation,
-      onChanged: (value) {
-        print('attempting download');
-        setState(() {
-          selectedLocation = value!;
-        });
-        widget.onNewLocationSelected(selectedLocation!);
-      },
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.black.withOpacity(0.4)),
+          borderRadius: BorderRadius.circular(10)),
+      height: 60,
+      width: MediaQuery.of(context).size.width,
+      child: DropdownButton<String>(
+        underline: SizedBox.shrink(),
+        focusColor: Colors.white,
+        items: availableLocations,
+        value: selectedLocation,
+        onChanged: (value) {
+          print('attempting download');
+          setState(() {
+            selectedLocation = value!;
+          });
+          widget.onNewLocationSelected(selectedLocation!);
+        },
+      ),
     );
   }
 }
@@ -75,23 +84,32 @@ class _ConcurrentDownloadsSelectorState
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<String>(
-      focusColor: Colors.white,
-      items: maxConcurrentDownloads
-          .map((download) => DropdownMenuItem(
-                value: download,
-                child: Text(download),
-              ))
-          .toList(),
-      value: selectedValue,
-      hint: Text('Select downloads'), // Placeholder text
-      onChanged: (value) {
-        setState(() {
-          selectedValue = value;
-        });
-        print('Selected: $value');
-      },
-      isExpanded: true, // Ensures full width of the dropdown
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+          border: Border.all(color: Colors.black.withOpacity(0.4)),
+          borderRadius: BorderRadius.circular(10)),
+      height: 60,
+      width: MediaQuery.of(context).size.width,
+      child: DropdownButton<String>(
+        underline: SizedBox.shrink(),
+        focusColor: Colors.white,
+        items: maxConcurrentDownloads
+            .map((download) => DropdownMenuItem(
+                  value: download,
+                  child: Text(download),
+                ))
+            .toList(),
+        value: selectedValue,
+        hint: Text('Select downloads'), // Placeholder text
+        onChanged: (value) {
+          setState(() {
+            selectedValue = value;
+          });
+          print('Selected: $value');
+        },
+        isExpanded: true, // Ensures full width of the dropdown
+      ),
     );
   }
 }
