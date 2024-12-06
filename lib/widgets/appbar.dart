@@ -22,7 +22,7 @@ class CustomAppBarForDownloads extends StatelessWidget
         bool isWideScreen = constraints.maxWidth > 600;
 
         return AppBar(
-          toolbarHeight: 137,
+          toolbarHeight: 150,
           backgroundColor: Colors.white,
           centerTitle: false,
           elevation: 0,
@@ -85,7 +85,7 @@ class CustomAppBarForDownloads extends StatelessWidget
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(137);
+  Size get preferredSize => const Size.fromHeight(150);
 }
 
 class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
