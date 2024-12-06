@@ -47,7 +47,25 @@ class SettingsScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: ConcurrentDownloadsSelector(),
-          )
+          ),
+          SizedBox(
+            height: 30,
+          ),
+          Row(children: [
+            SizedBox(width: 20),
+            Text(
+              'Default Download Priority',
+              style:
+                  GoogleFonts.ubuntu(fontWeight: FontWeight.w500, fontSize: 20),
+            ),
+          ]),
+          const SizedBox(
+            height: 30,
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: DownloadPrioritySelector(),
+          ),
         ],
       ),
     );

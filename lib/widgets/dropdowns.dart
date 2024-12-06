@@ -115,3 +115,59 @@ class _ConcurrentDownloadsSelectorState
     );
   }
 }
+
+class DownloadPrioritySelector extends StatefulWidget {
+  const DownloadPrioritySelector({super.key});
+
+  @override
+  _DownloadPrioritySelectorState createState() =>
+      _DownloadPrioritySelectorState();
+}
+
+class _DownloadPrioritySelectorState extends State<DownloadPrioritySelector> {
+  final List<String> maxConcurrentDownloads = ['Low', 'Normal', 'High'];
+  String? selectedValue; // Holds the currently selected value
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black.withOpacity(0.4)),
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+      ),
+      height: 60,
+      width: MediaQuery.of(context).size.width,
+      child: DropdownButton<String>(
+        underline: SizedBox.shrink(), // Removes default underline
+        focusColor: Colors.transparent,
+        items: maxConcurrentDownloads
+            .map(
+              (download) => DropdownMenuItem(
+                value: download,
+                child: Text(
+                  download,
+                  style: TextStyle(fontSize: 16), // Styling for dropdown items
+                ),
+              ),
+            )
+            .toList(),
+        value: selectedValue,
+        hint: Text(
+          'Select Download Priority',
+          style: TextStyle(fontSize: 16, color: Colors.grey),
+        ), // Placeholder text
+        onChanged: (value) {
+          setState(() {
+            selectedValue = value;
+          });
+          print('Selected: $value');
+        },
+        isExpanded: true, // Ensures the dropdown covers full width
+        dropdownColor: Colors.white, // Dropdown menu background color
+        icon: Icon(Icons.arrow_drop_down), // Custom dropdown icon
+      ),
+    );
+  }
+}
