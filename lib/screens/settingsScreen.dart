@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:turbo_shark/widgets/appbar.dart';
 import 'package:turbo_shark/widgets/dropdowns.dart';
+import 'package:turbo_shark/widgets/switches.dart';
 
 class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
@@ -65,6 +66,13 @@ class SettingsScreen extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: DownloadPrioritySelector(),
+          ),
+          const SizedBox(
+            height: 30,
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            child: AutoResumeSwitch(),
           ),
         ],
       ),
