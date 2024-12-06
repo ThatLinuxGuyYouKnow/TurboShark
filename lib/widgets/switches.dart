@@ -13,11 +13,14 @@ class _AutoResumeSwitchState extends State<AutoResumeSwitch> {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
           'Auto Resume Downloads',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+        ),
+        SizedBox(
+          width: 10,
         ),
         Switch(
           value: isAutoResumeEnabled,
@@ -27,7 +30,7 @@ class _AutoResumeSwitchState extends State<AutoResumeSwitch> {
             });
             print('Auto Resume: $isAutoResumeEnabled');
           },
-          activeColor: Colors.green,
+          activeColor: Colors.blue,
           inactiveThumbColor: Colors.grey,
           inactiveTrackColor: Colors.grey.withOpacity(0.5),
         ),
