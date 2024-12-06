@@ -38,7 +38,10 @@ dependencies:
   provider: ^6.1.2
   google_fonts: ^6.2.1
   path_provider:
+  hive:
+  hive_generator:
   hive_flutter: ^1.1.0
+  build_runner:
 dev_dependencies:
   flutter_test:
     sdk: flutter
