@@ -34,8 +34,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            isDarkmode ? Colors.blue.shade300 : Colors.black,
-            isDarkmode ? Colors.blue.shade700 : Colors.black,
+            isDarkmode ? Colors.black : Colors.blue.shade300,
+            isDarkmode ? Colors.black : Colors.blue.shade700,
           ],
         )),
         child: ListView(
