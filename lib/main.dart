@@ -13,7 +13,7 @@ import 'package:turbo_shark/ssl/ssl_handler.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
-  await GetStorage.init();
+  await GetStorage.init('user-data');
   await Hive.initFlutter();
   Hive.registerAdapter(DownloadHistoryAdapter());
   runApp(ChangeNotifierProvider(
