@@ -59,7 +59,8 @@ class _DarkModeSwitchState extends State<DarkModeSwitch> {
   Future<void> _loadTheme() async {
     final theme = await userPreferences.getTheme();
     setState(() {
-      isDarkMode = theme;
+      // Provide a default value if theme is null
+      isDarkMode = theme ?? false;
     });
   }
 
