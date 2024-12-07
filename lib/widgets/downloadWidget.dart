@@ -100,6 +100,7 @@ class DownloadWidget extends StatelessWidget {
         return Icons.music_note;
       case 'mp4':
       case 'avi':
+      case 'mkv':
         return Icons.video_file;
       case 'jpg':
       case 'png':
