@@ -23,6 +23,7 @@ class DownloadPromptButton extends StatelessWidget {
         return FutureBuilder(
             future: userPreferences.getTheme(),
             builder: (BuildContext, snapshot) {
+              final isDarkmode = snapshot.data ?? false;
               return GestureDetector(
                 onTap: () => onNewDownloadPressed(),
                 child: Container(
@@ -31,8 +32,10 @@ class DownloadPromptButton extends StatelessWidget {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Colors.blue.shade300,
-                        Colors.blue.shade400,
+                        isDarkmode ? Colors.black : Colors.blue.shade300,
+                        isDarkmode
+                            ? Colors.black.withOpacity(0.9)
+                            : Colors.blue.shade400,
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -40,7 +43,7 @@ class DownloadPromptButton extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.blue.shade200.withOpacity(0.5),
+                        color: Colors.black.withOpacity(0.5),
                         spreadRadius: 1,
                         blurRadius: 5,
                         offset: const Offset(0, 3),
