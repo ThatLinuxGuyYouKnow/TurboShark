@@ -44,6 +44,8 @@ class SettingsScreen extends StatelessWidget {
               // Auto Resume Downloads Section
 
               AutoResumeSwitch(),
+              const SizedBox(height: 10),
+              DarkModeSwitch()
             ],
           ),
         ),

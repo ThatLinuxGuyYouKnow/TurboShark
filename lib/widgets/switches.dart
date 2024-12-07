@@ -41,34 +41,45 @@ class _AutoResumeSwitchState extends State<AutoResumeSwitch> {
   }
 }
 
-class darkModeSwitch extends StatefulWidget {
+class DarkModeSwitch extends StatefulWidget {
   @override
-  State<darkModeSwitch> createState() => _darkModeSwitchState();
+  State<DarkModeSwitch> createState() => _DarkModeSwitchState();
 }
 
-class _darkModeSwitchState extends State<darkModeSwitch> {
+class _DarkModeSwitchState extends State<DarkModeSwitch> {
   final UserPreferences userPreferences = UserPreferences();
+  bool isDarkMode = false; // Initialize with a default value
 
+  @override
+  void initState() {
+    super.initState();
+    _loadTheme(); // Load saved theme from preferences
+  }
+
+  Future<void> _loadTheme() async {
+    final theme = await userPreferences.getTheme();
+    setState(() {
+      isDarkMode = theme;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    bool isDarkMode = userPreferences.getTheme();
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          isDarkMode ? 'Switch to' + 'Dark Mode' : 'Switch to light mode',
+          isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode',
           style: GoogleFonts.ubuntu(fontSize: 18, fontWeight: FontWeight.w600),
         ),
-        SizedBox(
-          width: 10,
-        ),
+        SizedBox(width: 10),
         Switch(
           value: isDarkMode,
-          onChanged: (value) {
+          onChanged: (value) async {
             setState(() {
               isDarkMode = value;
             });
-            print('Auto Resume: $isDarkMode');
+            await userPreferences.updateTheme(setToDarkMode: isDarkMode);
           },
           activeColor: Colors.black,
           inactiveThumbColor: Colors.blue,
