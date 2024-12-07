@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:turbo_shark/screens/downloadsScreen.dart';
 
 import 'package:turbo_shark/screens/settingsScreen.dart';
+import 'package:turbo_shark/user_preferences.dart';
 
 class CustomDrawer extends StatefulWidget {
   final Function(Widget) onScreenChanged;
@@ -19,6 +20,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final UserPreferences userPreferences = UserPreferences();
+    final isDarkmode = userPreferences.getTheme() == true;
     final screenWidth = MediaQuery.of(context).size.width;
     final isCompactMode = screenWidth < 600;
 
@@ -27,15 +30,14 @@ class _CustomDrawerState extends State<CustomDrawer> {
       width: isCompactMode ? screenWidth * 0.75 : screenWidth * 0.16,
       child: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Colors.blue.shade300,
-              Colors.blue.shade700,
-            ],
-          ),
-        ),
+            gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            isDarkmode ? Colors.blue.shade300 : Colors.black,
+            isDarkmode ? Colors.blue.shade700 : Colors.black,
+          ],
+        )),
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
