@@ -25,131 +25,137 @@ class _CustomDrawerState extends State<CustomDrawer> {
     final screenWidth = MediaQuery.of(context).size.width;
     final isCompactMode = screenWidth < 600;
     print(isDarkmode);
-    return Drawer(
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-      width: isCompactMode ? screenWidth * 0.75 : screenWidth * 0.16,
-      child: Container(
-        decoration: BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            isDarkmode ? Colors.black : Colors.blue.shade300,
-            isDarkmode ? Colors.black : Colors.blue.shade700,
-          ],
-        )),
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            _buildDrawerHeader(isCompactMode),
-            ...List.generate(drawerItems.length, (index) {
-              final item = drawerItems[index];
-              return _buildDrawerTile(
-                context: context,
-                icon: item.icon,
-                text: item.text,
-                isSelected: _selectedIndex == index,
-                onTap: () {
-                  setState(() {
-                    _selectedIndex = index;
-                  });
-                  widget.onScreenChanged(item.screen);
-                },
-                isCompactMode: isCompactMode,
-              );
-            }),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDrawerHeader(bool isCompactMode) {
-    // (Keep your existing _buildDrawerHeader implementation)
-    return DrawerHeader(
-      margin: EdgeInsets.zero,
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Row(
-        children: [
-          const Image(
-            image: AssetImage('assets/logo.png'),
-            width: 60,
-            height: 60,
-          ),
-          SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              'Turbo Shark',
-              style: GoogleFonts.russoOne(
-                fontWeight: FontWeight.bold,
-                fontSize: isCompactMode ? 20 : 24,
-                color: Colors.white,
-                shadows: [
-                  Shadow(
-                    blurRadius: 10.0,
-                    color: Colors.black45,
-                    offset: Offset(2.0, 2.0),
-                  ),
+    return FutureBuilder<bool?>(
+        future: userPreferences.getTheme(),
+        builder: (context, snapshot) {
+          final isDarkmode = snapshot.data ?? false;
+          return Drawer(
+            shape:
+                const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+            width: isCompactMode ? screenWidth * 0.75 : screenWidth * 0.16,
+            child: Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  isDarkmode ? Colors.black : Colors.blue.shade300,
+                  isDarkmode ? Colors.black : Colors.blue.shade700,
+                ],
+              )),
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  _buildDrawerHeader(isCompactMode),
+                  ...List.generate(drawerItems.length, (index) {
+                    final item = drawerItems[index];
+                    return _buildDrawerTile(
+                      context: context,
+                      icon: item.icon,
+                      text: item.text,
+                      isSelected: _selectedIndex == index,
+                      onTap: () {
+                        setState(() {
+                          _selectedIndex = index;
+                        });
+                        widget.onScreenChanged(item.screen);
+                      },
+                      isCompactMode: isCompactMode,
+                    );
+                  }),
                 ],
               ),
             ),
-          ),
-        ],
-      ),
-    );
+          );
+        });
   }
+}
 
-  Widget _buildDrawerTile({
-    required BuildContext context,
-    required IconData icon,
-    required String text,
-    required VoidCallback onTap,
-    required bool isCompactMode,
-    bool isSelected = false,
-  }) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-      decoration: BoxDecoration(
-        color: isSelected
-            ? Colors.white.withOpacity(0.3)
-            : Colors.white.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(12),
-          onTap: onTap,
-          child: Padding(
-            padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Icon(
-                  icon,
-                  size: 24,
-                  color: Colors.white,
+Widget _buildDrawerHeader(bool isCompactMode) {
+  // (Keep your existing _buildDrawerHeader implementation)
+  return DrawerHeader(
+    margin: EdgeInsets.zero,
+    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+    child: Row(
+      children: [
+        const Image(
+          image: AssetImage('assets/logo.png'),
+          width: 60,
+          height: 60,
+        ),
+        SizedBox(width: 12),
+        Expanded(
+          child: Text(
+            'Turbo Shark',
+            style: GoogleFonts.russoOne(
+              fontWeight: FontWeight.bold,
+              fontSize: isCompactMode ? 20 : 24,
+              color: Colors.white,
+              shadows: [
+                Shadow(
+                  blurRadius: 10.0,
+                  color: Colors.black45,
+                  offset: Offset(2.0, 2.0),
                 ),
-                SizedBox(width: 16),
-                if (!isCompactMode)
-                  Expanded(
-                    child: Text(
-                      text,
-                      style: GoogleFonts.ubuntu(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w500,
-                      ),
-                      textAlign: TextAlign.start,
-                    ),
-                  ),
               ],
             ),
           ),
         ),
+      ],
+    ),
+  );
+}
+
+Widget _buildDrawerTile({
+  required BuildContext context,
+  required IconData icon,
+  required String text,
+  required VoidCallback onTap,
+  required bool isCompactMode,
+  bool isSelected = false,
+}) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+    decoration: BoxDecoration(
+      color: isSelected
+          ? Colors.white.withOpacity(0.3)
+          : Colors.white.withOpacity(0.1),
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: onTap,
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Icon(
+                icon,
+                size: 24,
+                color: Colors.white,
+              ),
+              SizedBox(width: 16),
+              if (!isCompactMode)
+                Expanded(
+                  child: Text(
+                    text,
+                    style: GoogleFonts.ubuntu(
+                      fontSize: 16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+            ],
+          ),
+        ),
       ),
-    );
-  }
+    ),
+  );
 }
 
 // Drawer menu items configuration
