@@ -4,7 +4,7 @@ class UserPreferences {
   getTheme() async {
     await GetStorage.init('user-data');
     final box = GetStorage();
-    return box.read('dark-mode') ?? false;
+    return box.read('dark-mode');
   }
 
   ///set to true to set to dark mode
