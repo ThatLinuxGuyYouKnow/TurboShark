@@ -21,10 +21,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     final UserPreferences userPreferences = UserPreferences();
-    final isDarkmode = userPreferences.getTheme() == true;
+
     final screenWidth = MediaQuery.of(context).size.width;
     final isCompactMode = screenWidth < 600;
-    print(isDarkmode);
+
     return FutureBuilder<bool?>(
         future: userPreferences.getTheme(),
         builder: (context, snapshot) {
