@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +10,11 @@ import 'package:turbo_shark/models/downloadProvider.dart';
 import 'package:turbo_shark/models/download_history.dart';
 import 'package:turbo_shark/ssl/ssl_handler.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
-  Hive.initFlutter();
+  await GetStorage.init();
+  await Hive.initFlutter();
   Hive.registerAdapter(DownloadHistoryAdapter());
   runApp(ChangeNotifierProvider(
       create: (context) => DownloadProvider(), child: const MyApp()));
