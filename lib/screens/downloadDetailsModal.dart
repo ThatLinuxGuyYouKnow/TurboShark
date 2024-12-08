@@ -205,9 +205,12 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
-                        child: const Text(
+                        child: Text(
                           'Start Download',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: TextStyle(
+                              fontSize: 18,
+                              color:
+                                  snapshot.data! ? Colors.black : Colors.white),
                         ),
                       ),
                     ),
