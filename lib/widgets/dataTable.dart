@@ -14,19 +14,24 @@ class CustomDatatable extends StatelessWidget {
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: DataTable(
-        columns: const [
-          DataColumn(label: DatatableHeaderText(text: 'File Name')),
-          DataColumn(label: DatatableHeaderText(text: 'Progress')),
-          DataColumn(label: DatatableHeaderText(text: 'State')),
-        ],
-        rows: downloads.map((download) {
-          return DataRow(cells: [
-            DataCell(Text(download.name)),
-            DataCell(Text('${(download.progress * 100).toStringAsFixed(1)}%')),
-            DataCell(Text(download.state.toString().split('.').last)),
-          ]);
-        }).toList(),
+      child: SizedBox(
+        width: double.infinity, // Makes the table fill the available width
+        child: DataTable(
+          columnSpacing: 16, // Adjust spacing between columns
+          columns: const [
+            DataColumn(label: DatatableHeaderText(text: 'File Name')),
+            DataColumn(label: DatatableHeaderText(text: 'Progress')),
+            DataColumn(label: DatatableHeaderText(text: 'State')),
+          ],
+          rows: downloads.map((download) {
+            return DataRow(cells: [
+              DataCell(Text(download.name)),
+              DataCell(
+                  Text('${(download.progress * 100).toStringAsFixed(1)}%')),
+              DataCell(Text(download.state.toString().split('.').last)),
+            ]);
+          }).toList(),
+        ),
       ),
     );
   }
