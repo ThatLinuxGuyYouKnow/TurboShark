@@ -34,6 +34,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
     return FutureBuilder<bool?>(
       future: userPreferences.getTheme(),
       builder: (context, snapshot) {
+        final isDarkmode = snapshot.data ?? false;
         return Container(
           height: screenHeight,
           width: screenWidth,
@@ -190,7 +191,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
 
                   // Submit Button
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -199,7 +200,9 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                               downloadUrl ?? '', downloadPATH ?? '' + fileName);
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue.shade300,
+                          backgroundColor: snapshot.data!
+                              ? Colors.black
+                              : Colors.blue.shade300,
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -207,7 +210,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                         ),
                         child: Text(
                           'Start Download',
-                          style: TextStyle(fontSize: 18, color: Colors.white),
+                          style: TextStyle(fontSize: 16, color: Colors.white),
                         ),
                       ),
                     ),
