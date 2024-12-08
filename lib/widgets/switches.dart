@@ -77,10 +77,10 @@ class _DarkModeSwitchState extends State<DarkModeSwitch> {
         Switch(
           value: isDarkMode,
           onChanged: (value) async {
-            setState(() {
+            setState(() async {
               isDarkMode = value;
+              await userPreferences.updateTheme(setToDarkMode: isDarkMode);
             });
-            await userPreferences.updateTheme(setToDarkMode: isDarkMode);
           },
           activeColor: Colors.black,
           inactiveThumbColor: Colors.blue,
