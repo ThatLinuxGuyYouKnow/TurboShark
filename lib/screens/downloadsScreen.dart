@@ -40,11 +40,14 @@ class _DownloadScreenState extends State<DownloadScreen> {
                 )
               : ListView.builder(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
                   itemCount: downloadProvider.downloads.length,
                   itemBuilder: (context, index) {
                     final download = downloadProvider.downloads[index];
-                    return DownloadWidget(download: download);
+                    return Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: DownloadWidget(download: download),
+                    );
                   },
                 ),
         ),

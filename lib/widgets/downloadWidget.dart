@@ -15,6 +15,7 @@ class DownloadWidget extends StatelessWidget {
 
         return Container(
           decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
               border: Border.all(color: Colors.grey.withOpacity(0.1))),
           height: 100,
           child: Padding(
