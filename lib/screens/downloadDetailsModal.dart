@@ -207,10 +207,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                         ),
                         child: Text(
                           'Start Download',
-                          style: TextStyle(
-                              fontSize: 18,
-                              color:
-                                  snapshot.data! ? Colors.black : Colors.white),
+                          style: TextStyle(fontSize: 18, color: Colors.white),
                         ),
                       ),
                     ),
