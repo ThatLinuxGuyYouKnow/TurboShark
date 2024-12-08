@@ -200,9 +200,8 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                               downloadUrl ?? '', downloadPATH ?? '' + fileName);
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: snapshot.data!
-                              ? Colors.black
-                              : Colors.blue.shade300,
+                          backgroundColor:
+                              isDarkmode ? Colors.black : Colors.blue.shade300,
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
