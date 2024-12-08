@@ -1,23 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:turbo_shark/models/download.dart';
+import 'package:turbo_shark/models/downloadProvider.dart';
 
-class Datatable extends StatelessWidget {
-  Datatable({super.key});
+class CustomDatatable extends StatelessWidget {
+  CustomDatatable({super.key});
+
+  @override
   Widget build(BuildContext context) {
-    return DataTable(columns: [
-      DataColumn(label: Text('Filename')),
-      DataColumn(label: Text('Size')),
-      DataColumn(label: Text('Date')),
-      DataColumn(label: Text('Status')),
-      DataColumn(label: Text('Actions'))
-    ], rows: []);
+    // Access the downloads from the provider
+    final downloads = Provider.of<DownloadProvider>(context).downloads;
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: DataTable(
+        columns: const [
+          DataColumn(label: DatatableHeaderText(text: 'File Name')),
+          DataColumn(label: DatatableHeaderText(text: 'Progress')),
+          DataColumn(label: DatatableHeaderText(text: 'State')),
+        ],
+        rows: downloads.map((download) {
+          return DataRow(cells: [
+            DataCell(Text(download.name)),
+            DataCell(Text('${(download.progress * 100).toStringAsFixed(1)}%')),
+            DataCell(Text(download.state.toString().split('.').last)),
+          ]);
+        }).toList(),
+      ),
+    );
   }
 }
 
 class DatatableHeaderText extends StatelessWidget {
-  DatatableHeaderText({super.key, required this.text});
+  const DatatableHeaderText({super.key, required this.text});
   final String text;
+
+  @override
   Widget build(BuildContext context) {
-    return Text(text, style: GoogleFonts.ubuntu());
+    return Text(
+      text,
+      style: GoogleFonts.ubuntu(fontSize: 16, fontWeight: FontWeight.bold),
+    );
   }
 }
