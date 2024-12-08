@@ -4,7 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 class Datatable extends StatelessWidget {
   Datatable({super.key});
   Widget build(BuildContext context) {
-    return DataTable(columns: [], rows: []);
+    return DataTable(columns: [
+      DataColumn(label: Text('Filename')),
+      DataColumn(label: Text('Size')),
+      DataColumn(label: Text('Date')),
+      DataColumn(label: Text('Status')),
+      DataColumn(label: Text('Actions'))
+    ], rows: []);
   }
 }
 
