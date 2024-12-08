@@ -14,8 +14,7 @@ class DownloadWidget extends StatelessWidget {
         bool isCompactMode = constraints.maxWidth < 400;
 
         return Container(
-          decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(color: Colors.black))),
+          decoration: BoxDecoration(border: Border.all()),
           height: 100,
           child: Padding(
             padding: const EdgeInsets.all(12.0),
