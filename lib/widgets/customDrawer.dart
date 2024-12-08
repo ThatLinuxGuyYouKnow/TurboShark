@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:turbo_shark/screens/downloadsScreen.dart';
+import 'package:turbo_shark/screens/historyScreens.dart';
 
 import 'package:turbo_shark/screens/settingsScreen.dart';
 import 'package:turbo_shark/user_preferences.dart';
@@ -180,7 +181,7 @@ final List<DrawerItemConfig> drawerItems = [
   DrawerItemConfig(
     icon: Icons.history,
     text: 'History',
-    // screen: HistoryScreen(),
+    screen: HistoryScreen(),
   ),
   DrawerItemConfig(
     icon: Icons.settings,
