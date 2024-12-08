@@ -15,7 +15,6 @@ class CustomDatatable extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: SizedBox(
-        width: double.infinity, // Makes the table fill the available width
         child: DataTable(
           columnSpacing: 16, // Adjust spacing between columns
           columns: const [

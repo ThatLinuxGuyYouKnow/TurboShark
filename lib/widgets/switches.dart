@@ -70,7 +70,7 @@ class _DarkModeSwitchState extends State<DarkModeSwitch> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
-          isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode',
+          isDarkMode ? 'Light Mode' : 'Dark Mode',
           style: GoogleFonts.ubuntu(fontSize: 18, fontWeight: FontWeight.w600),
         ),
         SizedBox(width: 10),
