@@ -5,7 +5,12 @@ import 'package:turbo_shark/models/download.dart';
 
 class DownloadWidget extends StatelessWidget {
   final Download download;
-  const DownloadWidget({Key? key, required this.download}) : super(key: key);
+  final bool locationChangesArePermanent;
+  const DownloadWidget(
+      {Key? key,
+      required this.download,
+      required this.locationChangesArePermanent})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
