@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'dart:io';
 
 class CurrentDownloadLocationProvider extends ChangeNotifier {
   String? _currentDownloadLocation;

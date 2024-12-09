@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
 
+import 'package:turbo_shark/user_preferences.dart';
+
 class DownloadLocationDropdown extends StatefulWidget {
   final Function(String) onNewLocationSelected;
   final bool locationChangesArePermanent;
@@ -17,8 +19,9 @@ class DownloadLocationDropdown extends StatefulWidget {
 
 class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
   List<DropdownMenuItem<String>> availableLocations = [];
-  String? selectedLocation;
+  final UserPreferences userPreferences = UserPreferences();
 
+  String? selectedLocation;
   @override
   void initState() {
     super.initState();
@@ -33,6 +36,8 @@ class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
     ];
 
     setState(() {
+      selectedLocation = userPreferences.getUserPreferredDownloadLocation() ??
+          getDownloadsDirectory().toString();
       availableLocations = directories
           .where((dir) => dir != null)
           .map((dir) => DropdownMenuItem(
@@ -61,6 +66,10 @@ class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
         items: availableLocations,
         value: selectedLocation,
         onChanged: (value) {
+          widget.locationChangesArePermanent
+              ? userPreferences.setUserPreferredDownloadLocation(
+                  location: value ?? getDownloadsDirectory().toString())
+              : null;
           print('attempting download');
           setState(() {
             selectedLocation = value!;

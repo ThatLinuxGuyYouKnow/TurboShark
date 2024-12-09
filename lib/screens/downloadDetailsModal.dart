@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:turbo_shark/logic/downloadManager.dart';
+import 'package:turbo_shark/models/current_download_location.dart';
 import 'package:turbo_shark/models/downloadProvider.dart';
 import 'package:turbo_shark/user_preferences.dart';
 import 'package:turbo_shark/widgets/dropdowns.dart';
@@ -27,6 +28,8 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     final downloadState = Provider.of<DownloadProvider>(context);
+    final downloadLocation =
+        Provider.of<CurrentDownloadLocationProvider>(context);
     final UserPreferences userPreferences = UserPreferences();
 
     final isCompactMode = screenWidth < 600;

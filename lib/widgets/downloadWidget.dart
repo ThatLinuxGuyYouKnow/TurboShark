@@ -51,7 +51,7 @@ class DownloadWidget extends StatelessWidget {
                       LinearProgressIndicator(
                         value: download.progress,
                         backgroundColor: Colors.grey[50],
-                        valueColor: AlwaysStoppedAnimation<Color>(
+                        valueColor: const AlwaysStoppedAnimation<Color>(
                           Colors.blue,
                         ),
                         minHeight: 6,
