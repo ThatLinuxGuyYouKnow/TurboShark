@@ -49,10 +49,10 @@ class DownloadProvider extends ChangeNotifier {
 
   void startDownload(BuildContext context, String url, String savePath) {
     final provider = Provider.of<DownloadProvider>(context, listen: false);
-
+    print('starting download');
     // Create download history
     final downloadHistory = DownloadHistory(
-        id: url, // Using URL as ID, consider a more robust ID generation
+        id: url,
         fileName: url.split('/').last,
         filePath: savePath,
         progress: 0.0,

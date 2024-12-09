@@ -46,7 +46,6 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     final downloadState = Provider.of<DownloadProvider>(context);
-    final isCompactMode = screenWidth < 600;
 
     return FutureBuilder<bool?>(
       future: userPreferences.getTheme(),
@@ -214,7 +213,9 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                       child: ElevatedButton(
                         onPressed: () async {
                           downloadState.startDownload(
-                              context, downloadUrl ?? '', downloadPATH! + '/');
+                              context,
+                              downloadUrl ?? '',
+                              downloadPATH! + '/' + fileName);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor:
