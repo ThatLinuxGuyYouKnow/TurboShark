@@ -19,7 +19,8 @@ class UserPreferences {
     await box.write('download-location', location);
   }
 
-  getUserPreferredDownloadLocation() {
+  getUserPreferredDownloadLocation() async {
+    await GetStorage.init('user-data');
     final box = GetStorage();
     return box.read('download-location');
   }

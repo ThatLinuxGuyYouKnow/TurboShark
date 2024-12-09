@@ -36,8 +36,7 @@ class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
     ];
 
     setState(() {
-      selectedLocation = userPreferences.getUserPreferredDownloadLocation() ??
-          getDownloadsDirectory().toString();
+      selectedLocation = userPreferences.getUserPreferredDownloadLocation();
       availableLocations = directories
           .where((dir) => dir != null)
           .map((dir) => DropdownMenuItem(
@@ -68,7 +67,7 @@ class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
         onChanged: (value) {
           widget.locationChangesArePermanent
               ? userPreferences.setUserPreferredDownloadLocation(
-                  location: value ?? getDownloadsDirectory().toString())
+                  location: value!)
               : null;
           print('attempting download');
           setState(() {
