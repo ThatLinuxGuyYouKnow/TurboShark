@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:turbo_shark/logic/downloadManager.dart';
 import 'package:turbo_shark/models/current_download_location.dart';
@@ -19,19 +20,32 @@ class DownloadDetailsModal extends StatefulWidget {
 }
 
 class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
-  String selectedPriority = "Normal"; // Default priority
+  String selectedPriority = "Normal";
   String? downloadUrl;
   String? downloadPATH;
   String fileName = 'download' + DateTime.now().toString();
+  final UserPreferences userPreferences = UserPreferences();
+  @override
+  void initState() {
+    super.initState();
+    _initializeDownloadPath();
+  }
+
+  Future<void> _initializeDownloadPath() async {
+    final path = await userPreferences.getUserPreferredDownloadLocation() ??
+        (await getDownloadsDirectory())?.path ??
+        '';
+
+    setState(() {
+      downloadPATH = path;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     final downloadState = Provider.of<DownloadProvider>(context);
-    final downloadLocation =
-        Provider.of<CurrentDownloadLocationProvider>(context);
-    final UserPreferences userPreferences = UserPreferences();
-
     final isCompactMode = screenWidth < 600;
 
     return FutureBuilder<bool?>(
@@ -143,7 +157,6 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                     child: DownloadLocationDropdown(
                       onNewLocationSelected: (String location) {
                         downloadPATH = location;
-                        // Handle location selection
                       },
                       locationChangesArePermanent: false,
                     ),
@@ -200,8 +213,8 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: () async {
-                          downloadState.startDownload(context,
-                              downloadUrl ?? '', downloadPATH ?? '' + fileName);
+                          downloadState.startDownload(
+                              context, downloadUrl ?? '', downloadPATH! + '/');
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor:

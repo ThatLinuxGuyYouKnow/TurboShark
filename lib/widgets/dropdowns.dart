@@ -35,8 +35,11 @@ class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
       await getTemporaryDirectory(), // Temporary directory
     ];
 
+    // Await the asynchronous call to get the preferred location
+    String? preferredLocation =
+        await userPreferences.getUserPreferredDownloadLocation();
+
     setState(() {
-      selectedLocation = userPreferences.getUserPreferredDownloadLocation();
       availableLocations = directories
           .where((dir) => dir != null)
           .map((dir) => DropdownMenuItem(
@@ -44,9 +47,12 @@ class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
                 child: Text(dir.path),
               ))
           .toList();
-      if (availableLocations.isNotEmpty) {
-        selectedLocation = availableLocations.first.value;
-      }
+
+      // Set selectedLocation to the preferred location or the first available location
+      selectedLocation = preferredLocation ??
+          (availableLocations.isNotEmpty
+              ? availableLocations.first.value
+              : null);
     });
   }
 
