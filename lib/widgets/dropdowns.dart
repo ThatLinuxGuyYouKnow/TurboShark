@@ -4,9 +4,11 @@ import 'dart:io';
 
 class DownloadLocationDropdown extends StatefulWidget {
   final Function(String) onNewLocationSelected;
-
+  final bool locationChangesArePermanent;
   const DownloadLocationDropdown(
-      {super.key, required this.onNewLocationSelected});
+      {super.key,
+      required this.onNewLocationSelected,
+      required this.locationChangesArePermanent});
 
   @override
   _DownloadLocationDropdownState createState() =>

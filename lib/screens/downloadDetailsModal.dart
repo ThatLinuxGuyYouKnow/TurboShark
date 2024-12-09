@@ -142,6 +142,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                         downloadPATH = location;
                         // Handle location selection
                       },
+                      locationChangesArePermanent: false,
                     ),
                   ),
 

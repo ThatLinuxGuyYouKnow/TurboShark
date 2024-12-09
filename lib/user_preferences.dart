@@ -12,4 +12,10 @@ class UserPreferences {
     final box = GetStorage();
     await box.write('dark-mode', setToDarkMode);
   }
+
+  setUserPreferredDownloadLocation({required String location}) async {
+    await GetStorage.init('user-data');
+    final box = GetStorage();
+    await box.write('download-location', location);
+  }
 }

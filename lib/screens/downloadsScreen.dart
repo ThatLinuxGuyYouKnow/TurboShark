@@ -46,7 +46,9 @@ class _DownloadScreenState extends State<DownloadScreen> {
                     final download = downloadProvider.downloads[index];
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 20.0),
-                      child: DownloadWidget(download: download),
+                      child: DownloadWidget(
+                        download: download,
+                      ),
                     );
                   },
                 ),
