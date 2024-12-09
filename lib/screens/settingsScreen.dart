@@ -23,6 +23,7 @@ class SettingsScreen extends StatelessWidget {
               _buildSectionTitle('Default Download PATH'),
               const SizedBox(height: 10),
               DownloadLocationDropdown(
+                locationChangesArePermanent: true,
                 onNewLocationSelected: (location) {
                   print('New location: $location');
                 },
