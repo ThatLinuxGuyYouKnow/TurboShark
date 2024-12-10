@@ -23,16 +23,22 @@ class DownloadProvider extends ChangeNotifier {
     _downloads.clear();
     for (var history in downloadHistories) {
       final download = Download(
+          date: history.time,
           name: history.fileName,
           state: _convertStateStringToEnum(history.state),
-          progress: history.progress);
+          progress: history.progress,
+          size: history.size);
       _downloads.add(download);
     }
     notifyListeners();
   }
 
-  void addDownload(String downloadName) {
-    final download = Download(name: downloadName);
+  void addDownload(
+    String downloadName,
+    int size,
+  ) {
+    final download =
+        Download(name: downloadName, size: size, date: DateTime.now());
     _downloads.add(download);
 
     // Also save to local persistence
@@ -41,27 +47,48 @@ class DownloadProvider extends ChangeNotifier {
         fileName: downloadName,
         filePath: '', // You might want to pass this when starting download
         progress: 0.0,
-        state: download.state.toString().split('.').last);
+        state: download.state.toString().split('.').last,
+        size: size,
+        time: DateTime.now());
     _localData.addDownload(downloadHistory);
 
     notifyListeners();
   }
 
-  void startDownload(BuildContext context, String url, String savePath) {
+  Future<void> startDownload({
+    required BuildContext context,
+    required String url,
+    required String savePath,
+  }) async {
     final provider = Provider.of<DownloadProvider>(context, listen: false);
     print('starting download');
-    // Create download history
+
+    // Get content length (file size) before proceeding
+    final size = await ConcurrentFileDownloader(url: url, savePath: savePath)
+        .getContentLength(url);
+
+    if (size == null) {
+      print('Failed to determine file size.');
+      provider.updateState(url, Downloadstate.failed);
+      return; // Exit the function if size is unavailable
+    }
+
+    // Create and store download history
     final downloadHistory = DownloadHistory(
-        id: url,
-        fileName: url.split('/').last,
-        filePath: savePath,
-        progress: 0.0,
-        state: Downloadstate.inProgress.toString().split('.').last);
+      id: url,
+      fileName: url.split('/').last,
+      filePath: savePath,
+      progress: 0.0,
+      state: Downloadstate.inProgress.toString().split('.').last,
+      size: size,
+      time: DateTime.now(),
+    );
     _localData.addDownload(downloadHistory);
 
     // Add the download to the provider
-    provider.addDownload(url);
+    provider.addDownload(url, size);
 
+    // Initialize the downloader
     final downloader = ConcurrentFileDownloader(
       url: url,
       savePath: savePath,
@@ -74,10 +101,13 @@ class DownloadProvider extends ChangeNotifier {
       },
     );
 
-    downloader.download().catchError((error) {
+    // Start the download and handle errors
+    try {
+      await downloader.download();
+    } catch (error) {
       print('Download failed: $error');
       provider.updateState(url, Downloadstate.failed);
-    });
+    }
   }
 
   void updateProgress(String downloadName, double progress) {

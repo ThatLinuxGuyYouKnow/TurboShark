@@ -23,7 +23,7 @@ class ConcurrentFileDownloader {
     onStateChange?.call(url, Downloadstate.inProgress);
 
     try {
-      final contentLength = await _getContentLength();
+      final contentLength = await getContentLength(url);
       if (contentLength == null) {
         throw Exception('Could not determine file size');
       }
@@ -49,7 +49,7 @@ class ConcurrentFileDownloader {
     }
   }
 
-  Future<int?> _getContentLength() async {
+  Future<int?> getContentLength(url) async {
     try {
       final request = await HttpClient().getUrl(Uri.parse(url));
       request.followRedirects = true;

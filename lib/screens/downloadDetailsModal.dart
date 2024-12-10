@@ -210,9 +210,9 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                       child: ElevatedButton(
                         onPressed: () async {
                           downloadState.startDownload(
-                              context,
-                              downloadUrl ?? '',
-                              downloadPATH! + '/' + fileName);
+                              context: context,
+                              url: downloadUrl ?? '',
+                              savePath: downloadPATH! + '/' + fileName);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: snapshot.data!
