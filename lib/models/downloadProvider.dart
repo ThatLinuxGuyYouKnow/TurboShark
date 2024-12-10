@@ -69,7 +69,7 @@ class DownloadProvider extends ChangeNotifier {
 
     if (size == null) {
       print('Failed to determine file size.');
-      provider.updateState(url, Downloadstate.failed);
+      provider.updateState(url, Downloadstate.failed, size, DateTime.now());
       return; // Exit the function if size is unavailable
     }
 
@@ -94,10 +94,10 @@ class DownloadProvider extends ChangeNotifier {
       savePath: savePath,
       segmentCount: 4,
       onProgress: (downloadName, progress) {
-        provider.updateProgress(downloadName, progress);
+        provider.updateProgress(downloadName, progress, size, DateTime.now());
       },
       onStateChange: (downloadName, state) {
-        provider.updateState(downloadName, state);
+        provider.updateState(downloadName, state, size, DateTime.now());
       },
     );
 
@@ -106,22 +106,22 @@ class DownloadProvider extends ChangeNotifier {
       await downloader.download();
     } catch (error) {
       print('Download failed: $error');
-      provider.updateState(url, Downloadstate.failed);
+      provider.updateState(url, Downloadstate.failed, size, DateTime.now());
     }
   }
 
-  void updateProgress(String downloadName, double progress) {
+  void updateProgress(String downloadName, double progress, size, time) {
     final download = _downloads.firstWhere((d) => d.name == downloadName);
     download.progress = progress;
 
     // Update in local persistence
-    _localData.updateDownload(
-        downloadName, progress, download.state.toString().split('.').last);
+    _localData.updateDownload(downloadName, progress,
+        download.state.toString().split('.').last, size, time);
 
     notifyListeners();
   }
 
-  void updateState(String downloadName, Downloadstate state) {
+  void updateState(String downloadName, Downloadstate state, size, time) {
     try {
       final download = _downloads.firstWhere((d) => d.name == downloadName);
 
@@ -130,8 +130,8 @@ class DownloadProvider extends ChangeNotifier {
         download.state = state;
 
         // Update in local persistence
-        _localData.updateDownload(
-            downloadName, download.progress, state.toString().split('.').last);
+        _localData.updateDownload(downloadName, download.progress,
+            state.toString().split('.').last, size, time);
 
         notifyListeners();
       }

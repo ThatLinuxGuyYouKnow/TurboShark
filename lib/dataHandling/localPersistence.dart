@@ -22,7 +22,8 @@ class DownloadRepository {
   }
 
   // Update download progress and state
-  Future<void> updateDownload(String id, double progress, String state) async {
+  Future<void> updateDownload(
+      String id, double progress, String state, size, time) async {
     final box = await _openBox();
     final download = box.get(id);
     if (download != null) {
@@ -32,6 +33,8 @@ class DownloadRepository {
         filePath: download.filePath,
         progress: progress,
         state: state,
+        size: size,
+        time: time,
       );
       await box.put(id, updatedDownload);
     }
