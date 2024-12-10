@@ -14,6 +14,10 @@ class DownloadHistory {
   final double progress; // Progress (0.0 to 1.0)
   @HiveField(4)
   final String state; // Download state ("inProgress", "completed", etc.)
+  @HiveField(5)
+  final int size;
+  @HiveField(6)
+  final DateTime time;
 
   DownloadHistory({
     required this.id,
@@ -21,5 +25,7 @@ class DownloadHistory {
     required this.filePath,
     required this.progress,
     required this.state,
+    required this.size,
+    required this.time,
   });
 }

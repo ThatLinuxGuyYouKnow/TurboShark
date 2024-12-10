@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-import 'package:turbo_shark/models/downloadProvider.dart';
 import 'package:turbo_shark/user_preferences.dart';
 
 class DownloadPromptButton extends StatelessWidget {

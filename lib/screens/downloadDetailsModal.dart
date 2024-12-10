@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:turbo_shark/logic/downloadManager.dart';
-import 'package:turbo_shark/models/current_download_location.dart';
 import 'package:turbo_shark/models/downloadProvider.dart';
 import 'package:turbo_shark/user_preferences.dart';
 import 'package:turbo_shark/widgets/dropdowns.dart';
@@ -50,7 +48,6 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
     return FutureBuilder<bool?>(
       future: userPreferences.getTheme(),
       builder: (context, snapshot) {
-        final isDarkmode = snapshot.data ?? false;
         return Container(
           height: screenHeight,
           width: screenWidth,
@@ -218,8 +215,9 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                               downloadPATH! + '/' + fileName);
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              isDarkmode ? Colors.black : Colors.blue.shade300,
+                          backgroundColor: snapshot.data!
+                              ? Colors.black
+                              : Colors.blue.shade300,
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
