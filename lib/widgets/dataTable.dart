@@ -6,11 +6,11 @@ import 'package:turbo_shark/models/download.dart';
 import 'package:turbo_shark/models/downloadProvider.dart';
 
 class CustomDatatable extends StatelessWidget {
-  CustomDatatable({super.key});
+  const CustomDatatable({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final downloads = Provider.of<DownloadProvider>(context).downloads;
+    final downloads = Provider.of<DownloadProvider>(context).downloads.reversed;
 
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -21,7 +21,7 @@ class CustomDatatable extends StatelessWidget {
         headingTextStyle: GoogleFonts.ubuntu(
             fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey[800]),
         headingRowColor: WidgetStateProperty.resolveWith<Color>(
-            (states) => Colors.blue.withOpacity(0.1)),
+            (states) => Colors.blue[100]!.withOpacity(0.1)),
         columns: const [
           DataColumn(label: HeaderText('Filename')),
           DataColumn(label: HeaderText('Size')),
@@ -43,12 +43,11 @@ class CustomDatatable extends StatelessWidget {
                 ],
               )),
               DataCell(Text(
-                formatFileSize(
-                    download.size), // Add a method for file size formatting
+                formatFileSize(download.size),
                 style: GoogleFonts.ubuntu(fontSize: 14),
               )),
               DataCell(Text(
-                formatDate(download.date), // Add a method for date formatting
+                formatDate(download.date),
                 style: GoogleFonts.ubuntu(fontSize: 14),
               )),
               DataCell(Container(
@@ -70,7 +69,7 @@ class CustomDatatable extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () => deleteFile(download),
-                    icon: Icon(Icons.delete, color: Colors.red),
+                    icon: const Icon(Icons.delete, color: Colors.grey),
                   ),
                 ],
               )),
@@ -119,7 +118,7 @@ class HeaderText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: GoogleFonts.ubuntu(fontSize: 14, fontWeight: FontWeight.w600),
+      style: GoogleFonts.ubuntu(fontSize: 16, fontWeight: FontWeight.w800),
     );
   }
 }

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+
 import 'package:turbo_shark/screens/downloadsScreen.dart';
-import 'package:turbo_shark/screens/settingsScreen.dart';
+
 import 'package:turbo_shark/widgets/customDrawer.dart';
-import 'package:turbo_shark/widgets/searchBar.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -13,7 +12,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Widget _currentScreen = DownloadScreen();
+  Widget _currentScreen = const DownloadScreen();
 
   void _changeScreen(Widget newScreen) {
     setState(() {
