@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:turbo_shark/models/themeState.dart';
 import 'package:turbo_shark/user_preferences.dart';
 
 class AutoResumeSwitch extends StatefulWidget {
@@ -48,41 +50,28 @@ class DarkModeSwitch extends StatefulWidget {
 
 class _DarkModeSwitchState extends State<DarkModeSwitch> {
   final UserPreferences userPreferences = UserPreferences();
-  bool isDarkMode = false; // Initialize with a default value
-
-  @override
-  void initState() {
-    super.initState();
-    _loadTheme(); // Load saved theme from preferences
-  }
-
-  Future<void> _loadTheme() async {
-    final theme = await userPreferences.getTheme();
-    setState(() {
-      // Provide a default value if theme is null
-      isDarkMode = theme ?? false;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
+    final darkModeState = Provider.of<LiveTheme>(context);
+    final isDarkMode = darkModeState.isDarkMode;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Text(
           isDarkMode ? 'Light Mode' : 'Dark Mode',
-          style: GoogleFonts.ubuntu(fontSize: 18, fontWeight: FontWeight.w600),
+          style: GoogleFonts.ubuntu(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         SizedBox(width: 10),
         Switch(
           value: isDarkMode,
-          onChanged: (value) async {
-            setState(() {
-              isDarkMode = value;
-            });
-            setState(() async {
-              await userPreferences.updateTheme(setToDarkMode: isDarkMode);
-            });
+          onChanged: (value) {
+            // Toggle theme based on the new value
+            darkModeState.changeTheme(isDarkMode: value);
           },
           activeColor: Colors.black,
           inactiveThumbColor: Colors.blue,

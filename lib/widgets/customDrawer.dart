@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:turbo_shark/models/themeState.dart';
 import 'package:turbo_shark/screens/downloadsScreen.dart';
 import 'package:turbo_shark/screens/historyScreens.dart';
 
@@ -21,54 +23,47 @@ class _CustomDrawerState extends State<CustomDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    final UserPreferences userPreferences = UserPreferences();
-
     final screenWidth = MediaQuery.of(context).size.width;
     final isCompactMode = screenWidth < 600;
-
-    return FutureBuilder<bool?>(
-        future: userPreferences.getTheme(),
-        builder: (context, snapshot) {
-          final isDarkmode = snapshot.data ?? false;
-          return Drawer(
-            shape:
-                const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
-            width: isCompactMode ? screenWidth * 0.75 : screenWidth * 0.16,
-            child: Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  isDarkmode ? Colors.black : Colors.blue.shade300,
-                  isDarkmode ? Colors.black : Colors.blue.shade700,
-                ],
-              )),
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  _buildDrawerHeader(isCompactMode),
-                  ...List.generate(drawerItems.length, (index) {
-                    final item = drawerItems[index];
-                    return _buildDrawerTile(
-                      context: context,
-                      icon: item.icon,
-                      text: item.text,
-                      isSelected: _selectedIndex == index,
-                      onTap: () {
-                        setState(() {
-                          _selectedIndex = index;
-                        });
-                        widget.onScreenChanged(item.screen);
-                      },
-                      isCompactMode: isCompactMode,
-                    );
-                  }),
-                ],
-              ),
-            ),
-          );
-        });
+    final isDarkMode = Provider.of<LiveTheme>(context).isDarkMode;
+    print(isDarkMode);
+    return Drawer(
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      width: isCompactMode ? screenWidth * 0.75 : screenWidth * 0.16,
+      child: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            isDarkMode ? Colors.black : Colors.blue.shade300,
+            isDarkMode ? Colors.black : Colors.blue.shade700,
+          ],
+        )),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            _buildDrawerHeader(isCompactMode),
+            ...List.generate(drawerItems.length, (index) {
+              final item = drawerItems[index];
+              return _buildDrawerTile(
+                context: context,
+                icon: item.icon,
+                text: item.text,
+                isSelected: _selectedIndex == index,
+                onTap: () {
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                  widget.onScreenChanged(item.screen);
+                },
+                isCompactMode: isCompactMode,
+              );
+            }),
+          ],
+        ),
+      ),
+    );
   }
 }
 

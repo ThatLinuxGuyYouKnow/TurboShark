@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:turbo_shark/homepage.dart';
 import 'package:turbo_shark/models/downloadProvider.dart';
 import 'package:turbo_shark/models/download_history.dart';
+import 'package:turbo_shark/models/themeState.dart';
 import 'package:turbo_shark/ssl/ssl_handler.dart';
 
 void main() async {
@@ -16,8 +17,15 @@ void main() async {
   await GetStorage.init('user-data');
   await Hive.initFlutter();
   Hive.registerAdapter(DownloadHistoryAdapter());
-  runApp(ChangeNotifierProvider(
-      create: (context) => DownloadProvider(), child: const MyApp()));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => LiveTheme()),
+        ChangeNotifierProvider(create: (_) => DownloadProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
