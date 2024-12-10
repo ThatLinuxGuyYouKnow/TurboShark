@@ -17,11 +17,11 @@ class CustomDatatable extends StatelessWidget {
       child: DataTable(
         columnSpacing: 24,
         headingRowHeight: 56,
-        dataRowMinHeight: 64,
+        dataRowMaxHeight: 64,
         headingTextStyle: GoogleFonts.ubuntu(
             fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey[800]),
         headingRowColor: WidgetStateProperty.resolveWith<Color>(
-            (states) => Colors.grey[200]!),
+            (states) => Colors.blue.withOpacity(0.1)),
         columns: const [
           DataColumn(label: HeaderText('Filename')),
           DataColumn(label: HeaderText('Size')),
@@ -69,10 +69,6 @@ class CustomDatatable extends StatelessWidget {
               DataCell(Row(
                 children: [
                   IconButton(
-                    onPressed: () => downloadFile(download),
-                    icon: Icon(Icons.download_rounded, color: Colors.green),
-                  ),
-                  IconButton(
                     onPressed: () => deleteFile(download),
                     icon: Icon(Icons.delete, color: Colors.red),
                   ),
@@ -112,13 +108,7 @@ class CustomDatatable extends StatelessWidget {
     }
   }
 
-  void downloadFile(Download download) {
-    // Implement download functionality
-  }
-
-  void deleteFile(Download download) {
-    // Implement delete functionality
-  }
+  void deleteFile(Download download) {}
 }
 
 class HeaderText extends StatelessWidget {

@@ -43,7 +43,10 @@ class _DownloadScreenState extends State<DownloadScreen> {
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
                   itemCount: downloadProvider.downloads.length,
                   itemBuilder: (context, index) {
-                    final download = downloadProvider.downloads[index];
+                    final download = downloadProvider.downloads[downloadProvider
+                            .downloads.length -
+                        1 -
+                        index]; // so the downloads start from most recent/last first
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 20.0),
                       child: DownloadWidget(

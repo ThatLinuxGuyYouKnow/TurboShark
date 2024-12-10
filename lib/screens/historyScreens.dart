@@ -5,6 +5,7 @@ import 'package:turbo_shark/widgets/dataTable.dart';
 class HistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBodyBehindAppBar: false,
         backgroundColor: Colors.white,
         appBar: CustomAppbar(textContent: 'History'),
         body: CustomDatatable());
