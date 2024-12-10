@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:turbo_shark/enums/downloadState.dart';
 import 'package:turbo_shark/models/download.dart';
+import 'package:turbo_shark/models/themeState.dart';
 
 class DownloadWidget extends StatelessWidget {
   final Download download;
@@ -13,6 +15,8 @@ class DownloadWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final darkModeState = Provider.of<LiveTheme>(context);
+    final isDarkMode = darkModeState.isDarkMode;
     return LayoutBuilder(
       builder: (context, constraints) {
         bool isCompactMode = constraints.maxWidth < 400;
@@ -57,8 +61,8 @@ class DownloadWidget extends StatelessWidget {
                             ? 100
                             : download.progress * 4,
                         backgroundColor: Colors.grey[50],
-                        valueColor: const AlwaysStoppedAnimation<Color>(
-                          Colors.blue,
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                          isDarkMode ? Colors.black : Colors.blue,
                         ),
                         minHeight: 6,
                       ),

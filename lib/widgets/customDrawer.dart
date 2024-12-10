@@ -26,7 +26,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
     final screenWidth = MediaQuery.of(context).size.width;
     final isCompactMode = screenWidth < 600;
     final isDarkMode = Provider.of<LiveTheme>(context).isDarkMode;
-    print(isDarkMode);
+
     return Drawer(
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       width: isCompactMode ? screenWidth * 0.75 : screenWidth * 0.16,
