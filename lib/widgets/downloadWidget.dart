@@ -49,7 +49,13 @@ class DownloadWidget extends StatelessWidget {
                       const SizedBox(height: 8),
                       // Progress indicator
                       LinearProgressIndicator(
-                        value: download.progress,
+                        value: download.state == Downloadstate.done
+
+                            /// multiplying by 4 is atemporary stopgap till i actually figure out a better way to handle this
+                            /// could break once user is able to select number of segments
+                            /// TODO: implement better logic for handling progress display, iddeally i should multiply progress by the number of segments
+                            ? 100
+                            : download.progress * 4,
                         backgroundColor: Colors.grey[50],
                         valueColor: const AlwaysStoppedAnimation<Color>(
                           Colors.blue,
