@@ -13,79 +13,74 @@ class CustomDatatable extends StatelessWidget {
     final downloads = Provider.of<DownloadProvider>(context).downloads;
 
     return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: SizedBox(
-        width: double.infinity,
-        child: DataTable(
-          columnSpacing: 24,
-          headingRowHeight: 56,
-          dataRowHeight: 64,
-          headingTextStyle: GoogleFonts.ubuntu(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.grey[800]),
-          headingRowColor: MaterialStateProperty.resolveWith<Color>(
-              (states) => Colors.grey[200]!),
-          columns: const [
-            DataColumn(label: HeaderText('Filename')),
-            DataColumn(label: HeaderText('Size')),
-            DataColumn(label: HeaderText('Date')),
-            DataColumn(label: HeaderText('Status')),
-            DataColumn(label: HeaderText('Actions')),
-          ],
-          rows: downloads.map((download) {
-            return DataRow(
-              cells: [
-                DataCell(Row(
-                  children: [
-                    Icon(Icons.insert_drive_file, color: Colors.grey[700]),
-                    SizedBox(width: 8),
-                    Text(
-                      download.name,
-                      style: GoogleFonts.ubuntu(fontSize: 14),
-                    ),
-                  ],
-                )),
-                //DataCell(Text(
-                //    formatFileSize(
-                //         download.size), // Add a method for file size formatting
-                //    style: GoogleFonts.ubuntu(fontSize: 14),
-                //  )),
-                //  DataCell(Text(
-                //    formatDate(download.date), // Add a method for date formatting
-                //    style: GoogleFonts.ubuntu(fontSize: 14),
-                //  )),
-                DataCell(Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: getStatusColor(download.state),
-                    borderRadius: BorderRadius.circular(12),
+      scrollDirection: Axis.vertical,
+      child: DataTable(
+        columnSpacing: 24,
+        headingRowHeight: 56,
+        dataRowMinHeight: 64,
+        headingTextStyle: GoogleFonts.ubuntu(
+            fontSize: 16, fontWeight: FontWeight.bold, color: Colors.grey[800]),
+        headingRowColor: WidgetStateProperty.resolveWith<Color>(
+            (states) => Colors.grey[200]!),
+        columns: const [
+          DataColumn(label: HeaderText('Filename')),
+          DataColumn(label: HeaderText('Size')),
+          DataColumn(label: HeaderText('Date')),
+          DataColumn(label: HeaderText('Status')),
+          DataColumn(label: HeaderText('Actions')),
+        ],
+        rows: downloads.map((download) {
+          return DataRow(
+            cells: [
+              DataCell(Row(
+                children: [
+                  Icon(Icons.insert_drive_file, color: Colors.grey[700]),
+                  SizedBox(width: 8),
+                  Text(
+                    download.name,
+                    style: GoogleFonts.ubuntu(fontSize: 14),
                   ),
-                  child: Text(
-                    download.state.toString().split('.').last,
-                    style: GoogleFonts.ubuntu(
-                        fontSize: 12,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600),
+                ],
+              )),
+              DataCell(Text(
+                formatFileSize(
+                    download.size), // Add a method for file size formatting
+                style: GoogleFonts.ubuntu(fontSize: 14),
+              )),
+              DataCell(Text(
+                formatDate(download.date), // Add a method for date formatting
+                style: GoogleFonts.ubuntu(fontSize: 14),
+              )),
+              DataCell(Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: getStatusColor(download.state),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  download.state.toString().split('.').last,
+                  style: GoogleFonts.ubuntu(
+                      fontSize: 12,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600),
+                ),
+              )),
+              DataCell(Row(
+                children: [
+                  IconButton(
+                    onPressed: () => downloadFile(download),
+                    icon: Icon(Icons.download_rounded, color: Colors.green),
                   ),
-                )),
-                DataCell(Row(
-                  children: [
-                    IconButton(
-                      onPressed: () => downloadFile(download),
-                      icon: Icon(Icons.download_rounded, color: Colors.green),
-                    ),
-                    IconButton(
-                      onPressed: () => deleteFile(download),
-                      icon: Icon(Icons.delete, color: Colors.red),
-                    ),
-                  ],
-                )),
-              ],
-            );
-          }).toList(),
-        ),
+                  IconButton(
+                    onPressed: () => deleteFile(download),
+                    icon: Icon(Icons.delete, color: Colors.red),
+                  ),
+                ],
+              )),
+            ],
+          );
+        }).toList(),
       ),
     );
   }

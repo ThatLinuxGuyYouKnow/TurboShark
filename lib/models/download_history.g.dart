@@ -22,8 +22,8 @@ class DownloadHistoryAdapter extends TypeAdapter<DownloadHistory> {
       filePath: fields[2] as String,
       progress: fields[3] as double,
       state: fields[4] as String,
-      size: fields[5] as int,
-      time: fields[6] as DateTime,
+      size: fields[5] ?? 0 as int,
+      time: fields[6] ?? DateTime.now() as DateTime,
     );
   }
 

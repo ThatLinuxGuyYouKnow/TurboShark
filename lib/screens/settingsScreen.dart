@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:turbo_shark/dataHandling/delete.dart';
 import 'package:turbo_shark/widgets/appbar.dart';
 import 'package:turbo_shark/widgets/dropdowns.dart';
 import 'package:turbo_shark/widgets/switches.dart';
@@ -46,7 +47,13 @@ class SettingsScreen extends StatelessWidget {
 
               AutoResumeSwitch(),
               const SizedBox(height: 10),
-              DarkModeSwitch()
+              DarkModeSwitch(),
+              const SizedBox(height: 10),
+              TextButton(
+                  onPressed: () {
+                    clearAllHiveData();
+                  },
+                  child: Text('Delete'))
             ],
           ),
         ),
