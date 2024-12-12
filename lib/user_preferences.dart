@@ -28,4 +28,10 @@ class UserPreferences {
 
     return box.read('download-location');
   }
+
+  setUserPreferredConcurrentDownloads(
+      {required int concurrentDownloads}) async {
+    await GetStorage.init('user-data');
+    await box.write('concurrent-downloads', concurrentDownloads);
+  }
 }
