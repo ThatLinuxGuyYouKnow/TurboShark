@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:turbo_shark/enums/downloadState.dart';
 import 'package:turbo_shark/models/download.dart';
 import 'package:turbo_shark/models/themeState.dart';
-import 'package:turbo_shark/user_preferences.dart';
 
 class DownloadWidget extends StatefulWidget {
   final Download download;

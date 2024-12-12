@@ -6,7 +6,6 @@ import 'package:turbo_shark/screens/downloadsScreen.dart';
 import 'package:turbo_shark/screens/historyScreens.dart';
 
 import 'package:turbo_shark/screens/settingsScreen.dart';
-import 'package:turbo_shark/user_preferences.dart';
 
 class CustomDrawer extends StatefulWidget {
   final Function(Widget) onScreenChanged;

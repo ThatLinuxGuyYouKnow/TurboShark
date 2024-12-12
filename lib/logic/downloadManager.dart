@@ -29,7 +29,6 @@ class ConcurrentFileDownloader {
       }
 
       final segmentSize = contentLength ~/ segmentCount;
-      final file = await File(savePath).create(recursive: true);
 
       final downloadTasks = <Future>[];
       for (int i = 0; i < segmentCount; i++) {

@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:turbo_shark/dataHandling/localPersistence.dart';
 import 'package:turbo_shark/enums/downloadState.dart';
-import 'package:turbo_shark/models/download.dart';
 import 'package:turbo_shark/models/downloadProvider.dart';
 
 class CustomDatatable extends StatelessWidget {
@@ -36,7 +35,7 @@ class CustomDatatable extends StatelessWidget {
               DataCell(Row(
                 children: [
                   Icon(Icons.insert_drive_file, color: Colors.grey[700]),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Text(
                     download.name,
                     style: GoogleFonts.ubuntu(fontSize: 14),
