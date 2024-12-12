@@ -98,12 +98,14 @@ class ConcurrentDownloadsSelector extends StatefulWidget {
 class _ConcurrentDownloadsSelectorState
     extends State<ConcurrentDownloadsSelector> {
   final List<String> maxConcurrentDownloads = ['1', '2', '3', '4'];
-  String? selectedValue; // Holds the currently selected value
+  final UserPreferences userPreferences = UserPreferences();
 
   @override
   Widget build(BuildContext context) {
+    String selectedValue =
+        userPreferences.getUserPreferredConcurrentDownloads().toString();
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           border: Border.all(color: Colors.black.withOpacity(0.2)),
           borderRadius: BorderRadius.circular(10)),
@@ -119,10 +121,10 @@ class _ConcurrentDownloadsSelectorState
                 ))
             .toList(),
         value: selectedValue,
-        hint: Text('Select downloads'), // Placeholder text
+        hint: Text('Select downloads'),
         onChanged: (value) {
           setState(() {
-            selectedValue = value;
+            selectedValue = value ?? '2';
           });
           print('Selected: $value');
         },
