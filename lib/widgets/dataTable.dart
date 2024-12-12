@@ -27,7 +27,7 @@ class CustomDatatable extends StatelessWidget {
           DataColumn(label: HeaderText('Size')),
           DataColumn(label: HeaderText('Date')),
           DataColumn(label: HeaderText('Status')),
-          DataColumn(label: HeaderText('Actions')),
+          DataColumn(label: HeaderText('Action')),
         ],
         rows: downloads.map((download) {
           return DataRow(
