@@ -70,7 +70,8 @@ class CustomDatatable extends StatelessWidget {
                 children: [
                   IconButton(
                     onPressed: () {
-                      (downloadRepository.deleteDownload(download.id));
+                      downloadRepository.deleteDownload(download.id);
+                      print('delete download!');
                     },
                     icon: const Icon(Icons.delete, color: Colors.grey),
                   ),
