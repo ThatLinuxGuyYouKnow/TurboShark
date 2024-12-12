@@ -165,6 +165,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                   child: ElevatedButton(
                     onPressed: () async {
                       downloadState.startDownload(
+                        segmentCount: concurrentDownloadCount,
                         context: context,
                         url: downloadUrl ?? '',
                         savePath: downloadPATH! + '/' + fileName,

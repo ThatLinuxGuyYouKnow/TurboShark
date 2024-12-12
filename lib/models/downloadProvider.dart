@@ -55,11 +55,11 @@ class DownloadProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> startDownload({
-    required BuildContext context,
-    required String url,
-    required String savePath,
-  }) async {
+  Future<void> startDownload(
+      {required BuildContext context,
+      required String url,
+      required String savePath,
+      int segmentCount = 4}) async {
     final provider = Provider.of<DownloadProvider>(context, listen: false);
     print('starting download');
 
@@ -92,7 +92,7 @@ class DownloadProvider extends ChangeNotifier {
     final downloader = ConcurrentFileDownloader(
       url: url,
       savePath: savePath,
-      segmentCount: 4,
+      segmentCount: segmentCount,
       onProgress: (downloadName, progress) {
         provider.updateProgress(downloadName, progress, size, DateTime.now());
       },
