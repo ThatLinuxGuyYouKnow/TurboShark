@@ -39,7 +39,7 @@ class CustomAppBarForDownloads extends StatelessWidget
                       style: GoogleFonts.ubuntu(
                         color: Colors.black,
                         fontSize: isWideScreen ? 30 : 24,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w700,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),

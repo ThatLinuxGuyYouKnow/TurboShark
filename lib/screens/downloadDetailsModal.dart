@@ -37,7 +37,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
       color: Colors.black.withOpacity(0.3),
       child: Center(
         child: Container(
-          height: 800,
+          height: 600,
           width: 700,
           decoration: BoxDecoration(
             color: Colors.white,
