@@ -21,11 +21,19 @@ class DownloadDetailsModal extends StatefulWidget {
 class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
   String? downloadUrl;
   String? downloadPATH;
-  String fileName = 'download' + DateTime.now().toString();
+  String fileName = 'download${DateTime.now()}';
+  int concurrentDownloadCount = 4;
+  getUserPref() async {
+    concurrentDownloadCount =
+        await userPreferences.getUserPreferredConcurrentDownloads();
+    setState(() {});
+  }
+
   final UserPreferences userPreferences = UserPreferences();
   @override
   @override
   Widget build(BuildContext context) {
+    getUserPref();
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     final downloadState = Provider.of<DownloadProvider>(context);

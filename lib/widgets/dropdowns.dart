@@ -59,14 +59,14 @@ class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
           border: Border.all(color: Colors.black.withOpacity(0.2)),
           borderRadius: BorderRadius.circular(10)),
       height: 60,
       width: MediaQuery.of(context).size.width,
       child: DropdownButton<String>(
-        underline: SizedBox.shrink(),
+        underline: const SizedBox.shrink(),
         focusColor: Colors.white,
         items: availableLocations,
         value: selectedLocation,
@@ -89,11 +89,13 @@ class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
 
 class ConcurrentDownloadsSelector extends StatefulWidget {
   final bool isSelectionChangePermanent;
-  final Function onConcDownloadCountChanged;
-  const ConcurrentDownloadsSelector(
-      {super.key,
-      required this.isSelectionChangePermanent,
-      required this.onConcDownloadCountChanged});
+  final Function(int)? onConcDownloadCountChanged;
+
+  const ConcurrentDownloadsSelector({
+    super.key,
+    this.isSelectionChangePermanent = true,
+    this.onConcDownloadCountChanged,
+  });
 
   @override
   _ConcurrentDownloadsSelectorState createState() =>
@@ -102,9 +104,9 @@ class ConcurrentDownloadsSelector extends StatefulWidget {
 
 class _ConcurrentDownloadsSelectorState
     extends State<ConcurrentDownloadsSelector> {
-  final List<String> maxConcurrentDownloads = ['1', '2', '3', '4'];
+  final List<int> maxConcurrentDownloads = [1, 2, 3, 4];
   final UserPreferences userPreferences = UserPreferences();
-  late String _selectedValue;
+  int _selectedValue = 4; //TODO: Handle this a bit better
 
   @override
   void initState() {
@@ -116,7 +118,7 @@ class _ConcurrentDownloadsSelectorState
     final storedValue =
         await userPreferences.getUserPreferredConcurrentDownloads();
     setState(() {
-      _selectedValue = storedValue.toString();
+      _selectedValue = storedValue;
     });
   }
 
@@ -129,13 +131,13 @@ class _ConcurrentDownloadsSelectorState
           borderRadius: BorderRadius.circular(10)),
       height: 60,
       width: MediaQuery.of(context).size.width,
-      child: DropdownButton<String>(
+      child: DropdownButton<int>(
         underline: const SizedBox.shrink(),
         focusColor: Colors.white,
         items: maxConcurrentDownloads
             .map((download) => DropdownMenuItem(
                   value: download,
-                  child: Text(download),
+                  child: Text(download.toString()),
                 ))
             .toList(),
         value: _selectedValue,
@@ -145,10 +147,16 @@ class _ConcurrentDownloadsSelectorState
             setState(() {
               _selectedValue = value;
             });
-            widget.isSelectionChangePermanent
-                ? userPreferences.setUserPreferredConcurrentDownloads(
-                    concurrentDownloads: int.parse(value))
-                : null;
+
+            if (widget.onConcDownloadCountChanged != null) {
+              widget.onConcDownloadCountChanged!(value);
+            }
+
+            if (widget.isSelectionChangePermanent) {
+              userPreferences.setUserPreferredConcurrentDownloads(
+                  concurrentDownloads: value);
+            }
+
             print('Selected: $value');
           }
         },
@@ -173,7 +181,7 @@ class _DownloadPrioritySelectorState extends State<DownloadPrioritySelector> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black.withOpacity(0.2)),
         borderRadius: BorderRadius.circular(10),
@@ -182,7 +190,7 @@ class _DownloadPrioritySelectorState extends State<DownloadPrioritySelector> {
       height: 60,
       width: MediaQuery.of(context).size.width,
       child: DropdownButton<String>(
-        underline: SizedBox.shrink(), // Removes default underline
+        underline: const SizedBox.shrink(), // Removes default underline
         focusColor: Colors.transparent,
         items: maxConcurrentDownloads
             .map(
@@ -190,13 +198,14 @@ class _DownloadPrioritySelectorState extends State<DownloadPrioritySelector> {
                 value: download,
                 child: Text(
                   download,
-                  style: TextStyle(fontSize: 16), // Styling for dropdown items
+                  style: const TextStyle(
+                      fontSize: 16), // Styling for dropdown items
                 ),
               ),
             )
             .toList(),
         value: selectedValue,
-        hint: Text(
+        hint: const Text(
           'Select Download Priority',
           style: TextStyle(fontSize: 16, color: Colors.grey),
         ), // Placeholder text
@@ -208,7 +217,7 @@ class _DownloadPrioritySelectorState extends State<DownloadPrioritySelector> {
         },
         isExpanded: true, // Ensures the dropdown covers full width
         dropdownColor: Colors.white, // Dropdown menu background color
-        icon: Icon(Icons.arrow_drop_down), // Custom dropdown icon
+        icon: const Icon(Icons.arrow_drop_down), // Custom dropdown icon
       ),
     );
   }
