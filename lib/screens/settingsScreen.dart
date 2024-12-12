@@ -40,12 +40,6 @@ class SettingsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 30),
 
-              // Default Download Priority Section
-              _buildSectionTitle('Default Download Priority'),
-              const SizedBox(height: 10),
-              DownloadPrioritySelector(),
-              const SizedBox(height: 50),
-
               // Auto Resume Downloads Section
 
               AutoResumeSwitch(),
