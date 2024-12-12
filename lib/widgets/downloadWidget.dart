@@ -4,8 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:turbo_shark/enums/downloadState.dart';
 import 'package:turbo_shark/models/download.dart';
 import 'package:turbo_shark/models/themeState.dart';
+import 'package:turbo_shark/user_preferences.dart';
 
-class DownloadWidget extends StatelessWidget {
+class DownloadWidget extends StatefulWidget {
   final Download download;
 
   const DownloadWidget({
@@ -14,9 +15,15 @@ class DownloadWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<DownloadWidget> createState() => _DownloadWidgetState();
+}
+
+class _DownloadWidgetState extends State<DownloadWidget> {
+  @override
   Widget build(BuildContext context) {
     final darkModeState = Provider.of<LiveTheme>(context);
-    final isDarkMode = darkModeState.isDarkMode;
+    bool isDarkMode = darkModeState.isDarkMode;
+
     return LayoutBuilder(
       builder: (context, constraints) {
         bool isCompactMode = constraints.maxWidth < 400;
@@ -32,7 +39,7 @@ class DownloadWidget extends StatelessWidget {
               children: [
                 // File type icon
                 Icon(
-                  _getIconForFileType(download.name),
+                  _getIconForFileType(widget.download.name),
                   color: Colors.blue.shade100,
                   size: 40,
                 ),
@@ -43,7 +50,7 @@ class DownloadWidget extends StatelessWidget {
                     children: [
                       // Filename with truncation
                       Text(
-                        download.name,
+                        widget.download.name,
                         style: GoogleFonts.ubuntu(
                           fontSize: isCompactMode ? 14 : 16,
                           fontWeight: FontWeight.w500,
@@ -53,13 +60,13 @@ class DownloadWidget extends StatelessWidget {
                       const SizedBox(height: 8),
                       // Progress indicator
                       LinearProgressIndicator(
-                        value: download.state == Downloadstate.done
+                        value: widget.download.state == Downloadstate.done
 
                             /// multiplying by 4 is atemporary stopgap till i actually figure out a better way to handle this
                             /// could break once user is able to select number of segments
                             /// TODO: implement better logic for handling progress display, iddeally i should multiply progress by the number of segments
                             ? 100
-                            : download.progress * 4,
+                            : widget.download.progress * 4,
                         backgroundColor: Colors.grey[50],
                         valueColor: AlwaysStoppedAnimation<Color>(
                           isDarkMode ? Colors.black : Colors.blue,
@@ -75,13 +82,13 @@ class DownloadWidget extends StatelessWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: _getStateBackgroundColor(download.state),
+                    color: _getStateBackgroundColor(widget.download.state),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    download.state.name.toUpperCase(),
+                    widget.download.state.name.toUpperCase(),
                     style: GoogleFonts.ubuntu(
-                      color: _getStateTextColor(download.state),
+                      color: _getStateTextColor(widget.download.state),
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                     ),
