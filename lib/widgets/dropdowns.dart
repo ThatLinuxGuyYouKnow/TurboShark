@@ -88,7 +88,12 @@ class _DownloadLocationDropdownState extends State<DownloadLocationDropdown> {
 }
 
 class ConcurrentDownloadsSelector extends StatefulWidget {
-  const ConcurrentDownloadsSelector({super.key});
+  final bool isSelectionChangePermanent;
+  final Function onConcDownloadCountChanged;
+  const ConcurrentDownloadsSelector(
+      {super.key,
+      required this.isSelectionChangePermanent,
+      required this.onConcDownloadCountChanged});
 
   @override
   _ConcurrentDownloadsSelectorState createState() =>
@@ -140,9 +145,10 @@ class _ConcurrentDownloadsSelectorState
             setState(() {
               _selectedValue = value;
             });
-            // Save the selected value
-            userPreferences.setUserPreferredConcurrentDownloads(
-                concurrentDownloads: int.parse(value));
+            widget.isSelectionChangePermanent
+                ? userPreferences.setUserPreferredConcurrentDownloads(
+                    concurrentDownloads: int.parse(value))
+                : null;
             print('Selected: $value');
           }
         },

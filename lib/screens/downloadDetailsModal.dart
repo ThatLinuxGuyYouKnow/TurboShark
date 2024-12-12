@@ -145,7 +145,10 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
               _buildSectionTitle('Number of threads'),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                child: ConcurrentDownloadsSelector(),
+                child: ConcurrentDownloadsSelector(
+                  isSelectionChangePermanent: false,
+                  onConcDownloadCountChanged: (value) {},
+                ),
               ),
               const SizedBox(height: 30),
               Padding(

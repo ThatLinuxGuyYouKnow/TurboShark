@@ -34,7 +34,10 @@ class SettingsScreen extends StatelessWidget {
               // Max Concurrent Downloads Section
               _buildSectionTitle('Max Concurrent Downloads'),
               const SizedBox(height: 10),
-              ConcurrentDownloadsSelector(),
+              ConcurrentDownloadsSelector(
+                isSelectionChangePermanent: true,
+                onConcDownloadCountChanged: (value) {},
+              ),
               const SizedBox(height: 30),
 
               // Default Download Priority Section
