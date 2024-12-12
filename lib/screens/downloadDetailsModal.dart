@@ -37,7 +37,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
       color: Colors.black.withOpacity(0.3),
       child: Center(
         child: Container(
-          height: 600,
+          height: 720,
           width: 700,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -142,10 +142,12 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
               ),
 
               const SizedBox(height: 20),
-
-              const Spacer(),
-
-              // Submit Button
+              _buildSectionTitle('Number of threads'),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: ConcurrentDownloadsSelector(),
+              ),
+              const SizedBox(height: 30),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: SizedBox(
@@ -174,8 +176,6 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                   ),
                 ),
               ),
-
-              const SizedBox(height: 30),
             ],
           ),
         ),
