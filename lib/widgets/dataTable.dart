@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:turbo_shark/dataHandling/localPersistence.dart';
 import 'package:turbo_shark/enums/downloadState.dart';
 import 'package:turbo_shark/models/download.dart';
 import 'package:turbo_shark/models/downloadProvider.dart';
@@ -11,7 +12,7 @@ class CustomDatatable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final downloads = Provider.of<DownloadProvider>(context).downloads.reversed;
-
+    final DownloadRepository downloadRepository = DownloadRepository();
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: DataTable(
@@ -68,7 +69,9 @@ class CustomDatatable extends StatelessWidget {
               DataCell(Row(
                 children: [
                   IconButton(
-                    onPressed: () => deleteFile(download),
+                    onPressed: () {
+                      (downloadRepository.deleteDownload(download.id));
+                    },
                     icon: const Icon(Icons.delete, color: Colors.grey),
                   ),
                 ],
@@ -106,8 +109,6 @@ class CustomDatatable extends StatelessWidget {
         return Colors.blueGrey;
     }
   }
-
-  void deleteFile(Download download) {}
 }
 
 class HeaderText extends StatelessWidget {
