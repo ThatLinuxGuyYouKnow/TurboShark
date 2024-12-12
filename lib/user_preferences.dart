@@ -34,4 +34,9 @@ class UserPreferences {
     await GetStorage.init('user-data');
     await box.write('concurrent-downloads', concurrentDownloads);
   }
+
+  Future<int> getUserPreferredConcurrentDownloads() async {
+    await GetStorage.init('user-data');
+    return box.read('concurrent-downloads');
+  }
 }
