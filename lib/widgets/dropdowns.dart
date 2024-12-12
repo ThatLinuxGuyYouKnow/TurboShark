@@ -99,11 +99,24 @@ class _ConcurrentDownloadsSelectorState
     extends State<ConcurrentDownloadsSelector> {
   final List<String> maxConcurrentDownloads = ['1', '2', '3', '4'];
   final UserPreferences userPreferences = UserPreferences();
+  late String _selectedValue;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadInitialValue();
+  }
+
+  Future<void> _loadInitialValue() async {
+    final storedValue =
+        await userPreferences.getUserPreferredConcurrentDownloads();
+    setState(() {
+      _selectedValue = storedValue.toString();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    String selectedValue =
-        userPreferences.getUserPreferredConcurrentDownloads().toString();
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
@@ -112,7 +125,7 @@ class _ConcurrentDownloadsSelectorState
       height: 60,
       width: MediaQuery.of(context).size.width,
       child: DropdownButton<String>(
-        underline: SizedBox.shrink(),
+        underline: const SizedBox.shrink(),
         focusColor: Colors.white,
         items: maxConcurrentDownloads
             .map((download) => DropdownMenuItem(
@@ -120,15 +133,20 @@ class _ConcurrentDownloadsSelectorState
                   child: Text(download),
                 ))
             .toList(),
-        value: selectedValue,
-        hint: Text('Select downloads'),
+        value: _selectedValue,
+        hint: const Text('Select downloads'),
         onChanged: (value) {
-          setState(() {
-            selectedValue = value ?? '2';
-          });
-          print('Selected: $value');
+          if (value != null) {
+            setState(() {
+              _selectedValue = value;
+            });
+            // Save the selected value
+            userPreferences.setUserPreferredConcurrentDownloads(
+                concurrentDownloads: int.parse(value));
+            print('Selected: $value');
+          }
         },
-        isExpanded: true, // Ensures full width of the dropdown
+        isExpanded: true,
       ),
     );
   }

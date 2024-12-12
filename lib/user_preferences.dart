@@ -27,6 +27,6 @@ class UserPreferences {
   }
 
   Future<int> getUserPreferredConcurrentDownloads() async {
-    return box.read('concurrent-downloads');
+    return box.read('concurrent-downloads') ?? 4;
   }
 }
