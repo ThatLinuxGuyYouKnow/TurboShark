@@ -42,7 +42,11 @@ class DownloadRepository {
 
   // Delete a download
   Future<void> deleteDownload(String id) async {
-    final box = await _openBox();
-    await box.delete(id);
+    try {
+      final box = await _openBox();
+      await box.delete(id);
+    } catch (error) {
+      print(error.toString());
+    }
   }
 }
