@@ -18,14 +18,14 @@ class CustomAppBarForDownloads extends StatelessWidget
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        // Determine if it's a mobile or desktop layout
         bool isWideScreen = constraints.maxWidth > 600;
 
         return AppBar(
+          scrolledUnderElevation: 0,
+          elevation: 0,
           toolbarHeight: 150,
           backgroundColor: Colors.white,
           centerTitle: false,
-          elevation: 0,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
