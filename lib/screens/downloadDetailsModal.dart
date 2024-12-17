@@ -174,7 +174,7 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                           segmentCount: concurrentDownloadCount,
                           context: context,
                           url: downloadUrl ?? '',
-                          savePath: downloadPATH! + '/' + fileName,
+                          savePath: '${downloadPATH!}/$fileName',
                         );
                         print(' starting dowload to path ' + downloadPATH!);
                       }
