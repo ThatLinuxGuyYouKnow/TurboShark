@@ -169,13 +169,15 @@ class _DownloadDetailsModalState extends State<DownloadDetailsModal> {
                   width: double.infinity,
                   child: ElevatedButton(
                     onPressed: () async {
-                      downloadState.startDownload(
-                        segmentCount: concurrentDownloadCount,
-                        context: context,
-                        url: downloadUrl ?? '',
-                        savePath: downloadPATH ??
-                            getDownloadsDirectory().toString() + '/' + fileName,
-                      );
+                      if (downloadUrl != null) {
+                        downloadState.startDownload(
+                          segmentCount: concurrentDownloadCount,
+                          context: context,
+                          url: downloadUrl ?? '',
+                          savePath: downloadPATH! + '/' + fileName,
+                        );
+                        print(' starting dowload to path ' + downloadPATH!);
+                      }
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: themeState.isDarkMode
