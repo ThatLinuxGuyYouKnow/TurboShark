@@ -95,6 +95,8 @@ class CustomAppbar extends StatelessWidget implements PreferredSizeWidget {
     return LayoutBuilder(builder: (context, constraints) {
       bool isWideScreen = constraints.maxWidth > 600;
       return AppBar(
+        scrolledUnderElevation: 0,
+        elevation: 0,
         backgroundColor: Colors.white,
         toolbarHeight: 150,
         title: Column(
