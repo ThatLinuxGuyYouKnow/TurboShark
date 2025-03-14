@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'dart:isolate';
-import 'package:path/path.dart' as p; // Import path package
+import 'package:path/path.dart' as p;
 import 'package:turbo_shark/enums/downloadState.dart';
 import 'package:turbo_shark/ssl/ssl_handler.dart';
 
@@ -18,13 +18,14 @@ class ConcurrentFileDownloader {
     this.onProgress,
     this.onStateChange,
   });
-
+  final Map<int, String> _tempFilePaths = {};
   Future<void> download() async {
     print('Starting download for URL: $url');
     onStateChange?.call(url, Downloadstate.inProgress);
 
     try {
       final contentLength = await getContentLength(url);
+
       if (contentLength == null) {
         print('Failed to determine file size for URL: $url');
         throw Exception('Could not determine file size');
@@ -36,6 +37,7 @@ class ConcurrentFileDownloader {
 
       final downloadTasks = <Future>[];
       for (int i = 0; i < segmentCount; i++) {
+        _tempFilePaths[i] = _createTempFilePath(i);
         final start = i * segmentSize;
         final end = (i == segmentCount - 1)
             ? contentLength - 1
@@ -86,6 +88,18 @@ class ConcurrentFileDownloader {
     }
   }
 
+  String _createTempFilePath(int segmentIndex) {
+    try {
+      final dir = Directory.systemTemp.createTempSync('turbo_shark_temp_');
+      final path = p.join(dir.path, 'segment_$segmentIndex.tmp');
+      print('Created temporary directory for segment $segmentIndex: $path');
+      return path;
+    } catch (e) {
+      print('Error creating temporary file path: $e');
+      rethrow;
+    }
+  }
+
   Future<void> _downloadSegment(
     int start,
     int end,
@@ -130,15 +144,7 @@ class ConcurrentFileDownloader {
   }
 
   String _getTempFilePath(int segmentIndex) {
-    try {
-      final dir = Directory.systemTemp.createTempSync('turbo_shark_temp_');
-      final path = p.join(dir.path, 'segment_$segmentIndex.tmp');
-      print('Created temporary directory for segment $segmentIndex: $path');
-      return path;
-    } catch (e) {
-      print('Error creating temporary file path: $e');
-      rethrow;
-    }
+    return _tempFilePaths[segmentIndex]!;
   }
 
   Future<void> _mergeSegments() async {
@@ -190,7 +196,7 @@ class ConcurrentFileDownloader {
         final file = await File(savePath).open(mode: FileMode.write);
 
         await for (final data in response) {
-          await file.writeFrom(data); // Write to the temp file
+          await file.writeFrom(data);
           sendPort.send({'bytes': data.length});
         }
         await file.close();
