@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:turbo_shark/models/downloadProvider.dart';
+import 'package:turbo_shark/models/themeState.dart';
 import 'package:turbo_shark/screens/downloadDetailsModal.dart';
 import 'package:turbo_shark/widgets/appbar.dart';
 import 'package:turbo_shark/widgets/downloadWidget.dart';
@@ -18,11 +19,11 @@ class _DownloadScreenState extends State<DownloadScreen> {
   @override
   Widget build(BuildContext context) {
     final downloadProvider = Provider.of<DownloadProvider>(context);
-
+    final isDarkMode = Provider.of<LiveTheme>(context).isDarkMode;
     return Stack(
       children: [
         Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: isDarkMode ? Colors.black : Colors.white,
           appBar: CustomAppBarForDownloads(
             onNewDownloadPressed: () {
               setState(() {

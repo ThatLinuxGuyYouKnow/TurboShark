@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:turbo_shark/models/themeState.dart';
 import 'package:turbo_shark/widgets/buttons.dart';
 import 'package:turbo_shark/widgets/searchBar.dart';
 
@@ -16,6 +18,7 @@ class CustomAppBarForDownloads extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Provider.of<LiveTheme>(context).isDarkMode;
     return LayoutBuilder(
       builder: (context, constraints) {
         bool isWideScreen = constraints.maxWidth > 600;
@@ -24,7 +27,7 @@ class CustomAppBarForDownloads extends StatelessWidget
           scrolledUnderElevation: 0,
           elevation: 0,
           toolbarHeight: 150,
-          backgroundColor: Colors.white,
+          backgroundColor: isDarkMode ? Colors.black : Colors.white,
           centerTitle: false,
           title: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,8 +40,8 @@ class CustomAppBarForDownloads extends StatelessWidget
                     child: Text(
                       appBarTitle,
                       style: GoogleFonts.ubuntu(
-                        color: Colors.black,
-                        fontSize: isWideScreen ? 30 : 24,
+                        color: isDarkMode ? Colors.white : Colors.black,
+                        fontSize: isWideScreen ? 28 : 24,
                         fontWeight: FontWeight.w700,
                       ),
                       overflow: TextOverflow.ellipsis,
