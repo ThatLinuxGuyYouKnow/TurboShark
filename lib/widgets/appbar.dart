@@ -52,7 +52,6 @@ class CustomAppBarForDownloads extends StatelessWidget
                   if (isWideScreen)
                     Row(
                       children: [
-                        Searchbar(constraints: constraints),
                         const SizedBox(width: 20),
                         DownloadPromptButton(
                             onNewDownloadPressed: onNewDownloadPressed),
@@ -66,7 +65,6 @@ class CustomAppBarForDownloads extends StatelessWidget
                 Column(
                   children: [
                     const SizedBox(height: 10),
-                    Searchbar(constraints: constraints),
                     const SizedBox(height: 10),
                     DownloadPromptButton(
                         onNewDownloadPressed: onNewDownloadPressed),

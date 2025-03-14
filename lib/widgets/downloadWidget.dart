@@ -30,7 +30,8 @@ class _DownloadWidgetState extends State<DownloadWidget> {
         return Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: Colors.grey.withOpacity(0.4))),
+              border:
+                  Border.all(width: 1.1, color: Colors.grey.withOpacity(0.4))),
           height: 100,
           child: Padding(
             padding: const EdgeInsets.all(12.0),
@@ -51,6 +52,7 @@ class _DownloadWidgetState extends State<DownloadWidget> {
                       Text(
                         widget.download.name,
                         style: GoogleFonts.ubuntu(
+                          color: isDarkMode ? Colors.white : Colors.black,
                           fontSize: isCompactMode ? 14 : 16,
                           fontWeight: FontWeight.w500,
                         ),

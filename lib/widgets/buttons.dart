@@ -23,7 +23,7 @@ class DownloadPromptButton extends StatelessWidget {
       return GestureDetector(
         onTap: () => onNewDownloadPressed(),
         child: Container(
-          height: 50,
+          height: 45,
           width: buttonWidth,
           decoration: BoxDecoration(
             gradient: LinearGradient(
@@ -38,12 +38,14 @@ class DownloadPromptButton extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(15),
             boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.5),
-                spreadRadius: 1,
-                blurRadius: 5,
-                offset: const Offset(0, 3),
-              ),
+              isDarkMode
+                  ? BoxShadow(
+                      color: Colors.grey[50]!,
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                      offset: const Offset(1, 1),
+                    )
+                  : BoxShadow()
             ],
           ),
           child: Center(
