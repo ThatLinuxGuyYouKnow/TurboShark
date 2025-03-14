@@ -84,7 +84,7 @@ Widget _buildDrawerHeader(bool isCompactMode) {
             'Turbo Shark',
             style: GoogleFonts.russoOne(
               fontWeight: FontWeight.bold,
-              fontSize: isCompactMode ? 20 : 24,
+              fontSize: isCompactMode ? 18 : 20,
               color: Colors.white,
               shadows: [
                 Shadow(
@@ -138,7 +138,7 @@ Widget _buildDrawerTile({
                   child: Text(
                     text,
                     style: GoogleFonts.ubuntu(
-                      fontSize: 16,
+                      fontSize: 14,
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
                     ),
