@@ -77,3 +77,19 @@ class DownloadPromptButton extends StatelessWidget {
     });
   }
 }
+
+class Testutton extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50,
+      width: 250,
+      decoration: BoxDecoration(color: Colors.white.withOpacity(0.1)),
+      child: Center(
+        child: Text(
+          'Download',
+          style: GoogleFonts.ubuntu(fontSize: 18, color: Colors.black),
+        ),
+      ),
+    );
+  }
+}

@@ -1,13 +1,11 @@
 import 'package:hive/hive.dart';
+import 'package:turbo_shark/models/download_history.dart';
 
 Future<void> clearAllHiveData() async {
   try {
-    // Close all opened Hive boxes
-    await Hive.close();
+    final box = Hive.box<DownloadHistory>('downloadHistory');
 
-    // Delete all Hive data from the disk
-    await Hive.deleteFromDisk();
-
+    box.clear();
     print("All Hive data cleared successfully.");
   } catch (e) {
     print("Error while clearing Hive data: $e");

@@ -37,14 +37,29 @@ class CustomAppBarForDownloads extends StatelessWidget
                 children: [
                   // Title
                   Flexible(
-                    child: Text(
-                      appBarTitle,
-                      style: GoogleFonts.ubuntu(
-                        color: isDarkMode ? Colors.white : Colors.black,
-                        fontSize: isWideScreen ? 28 : 24,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      overflow: TextOverflow.ellipsis,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          appBarTitle,
+                          style: GoogleFonts.ubuntu(
+                            color: isDarkMode ? Colors.white : Colors.black,
+                            fontSize: isWideScreen ? 24 : 21,
+                            fontWeight: FontWeight.w700,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        SizedBox(
+                          width: 130,
+                          child: Divider(
+                            color: Colors.white,
+                            height: 2,
+                          ),
+                        )
+                      ],
                     ),
                   ),
 
