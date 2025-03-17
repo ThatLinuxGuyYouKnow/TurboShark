@@ -7,6 +7,8 @@
 
 Turbo Shark is a Flutter-based multithreaded download manager designed to efficiently download files by breaking them into segments and downloading them concurrently. This approach significantly speeds up the download process, especially for large files.
 
+![🚧](image.png)
+
 ## Features
 
 -   **Multithreaded Downloading:** Utilizes Dart isolates to download file segments concurrently, improving download speed.
@@ -15,34 +17,7 @@ Turbo Shark is a Flutter-based multithreaded download manager designed to effici
 -   **Customizable Segment Count:** Allows you to specify the number of segments to use for downloading.
 -   **User-Friendly UI:** Simple and intuitive user interface using custom drawer for navigation.
 -   **Theme Support:**  Supports dark and light themes.
-
-## Project Structure
-
-The project is organized as follows:
-
-```
-turbo_shark/
-├── lib/
-│   ├── enums/
-│   │   └── downloadState.dart
-│   ├── ssl/
-│   │    └── ssl_handler.dart
-│   ├── models/
-│   │    └── themeState.dart
-│   ├── screens/
-│   │   ├── downloadsScreen.dart
-│   │   ├── historyScreens.dart
-│   │   └── settingsScreen.dart
-│   ├── main.dart       // Entry point of the app
-│   └── concurrent_file_downloader.dart  // Core download logic
-├── assets/
-│   └── logo.png
-├── pubspec.yaml
-└── README.md
-```
-
-
-
+ 
 ## Core Logic
 
 The core download functionality is encapsulated within the `ConcurrentFileDownloader` class. This class is responsible for:
