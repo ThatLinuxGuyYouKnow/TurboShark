@@ -49,14 +49,14 @@ class CustomAppBarForDownloads extends StatelessWidget
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 130,
                           child: Divider(
                             color: Colors.white,
-                            height: 2,
+                            height: 3,
                           ),
                         )
                       ],
